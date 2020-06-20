@@ -1,29 +1,44 @@
 {
-  "name": "zap-weather",
-  "version": "1.0.0",
-  "description": "ExpressJS Weather Application",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "nodemon --exec babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://mjstobo@bitbucket.org/mjstobo/zap-weather.git"
-  },
-  "author": "www.mjstobo.com",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/mjstobo/zap-weather#readme",
+  "name": "zap-spotify",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "npm": "^6.14.5"
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "concurrently": "^5.2.0",
+    "http-proxy-middleware": "^1.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
-    "@babel/node": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "mongoose": "^5.9.18",
-    "nodemon": "^2.0.4"
+    "@babel/node": "^7.10.3",
+    "@babel/preset-env": "^7.10.2"
+  },
+  "scripts": {
+    "both": "concurrently \"nodemon --exec babel-node api/server.js\" \"react-scripts start\" ",
+    "start": "react-scripts start",
+    "server": "nodemon --exec babel-node api/server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
