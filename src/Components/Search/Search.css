@@ -1,0 +1,14 @@
+.search-frame {
+    width: 100%;
+    min-width: 300px;
+    margin-top: 55px;
+}
+
+.search-bar {
+    width: 100%;
+}
+
+.search-bar.input {
+    width: 80%;
+    margin: 10px
+}
