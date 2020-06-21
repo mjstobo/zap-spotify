@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios").default;
 const path = require("path");
 const cors = require("cors");
+const session = require('express-session');
 
 //express init
 const api = express();
@@ -22,12 +23,19 @@ const redirect_uri = "http://localhost:3000/api/callback";
 //middlewares
 api.use(express.json());
 api.use(cookieParser());
-api.use(
-  cors({
+api.use(cors({
     origin: "localhost:3000",
     credentials: false,
   })
 );
+
+api.use(session({
+  genid: (() => uuidv4()),
+  resave: false,
+  name: "zap-session",
+  saveUninitialized: true,
+  secret: "archie-pug"
+}))
 
 //db init
 mongoose.connect(process.env.MONGOOSE_DB, { useNewUrlParser: true });
@@ -39,6 +47,9 @@ db.once("open", function () {
 
 //constants
 const stateKey = "spotify_auth_state";
+
+// check logged-in state.
+// TODO
 
 //routes
 api.get("/api/login", cors(), (req, res) => {
@@ -59,12 +70,12 @@ api.get("/api/login", cors(), (req, res) => {
   );
 });
 
-const getUser = async (headerOptions) => {
-  return await axios
-    .get("https://api.spotify.com/v1/me", {
+const getUser = headerOptions => {
+  axios.get("https://api.spotify.com/v1/me", {
       headers: headerOptions,
     })
-    .then((response) => console.log(response))
+    .then((response) => {
+      return response})
     .catch((e) => console.log(e));
 };
 
@@ -76,7 +87,6 @@ api.get("/api/callback", (req, res) => {
     res.redirect("/#error");
   } else {
     res.clearCookie(stateKey);
-
     const header = new Buffer.from(`${client_id}:${client_secret}`).toString(
       "base64"
     );
@@ -105,42 +115,54 @@ api.get("/api/callback", (req, res) => {
         );
       })
       .then((response) => {
-        console.log(response);
         let access_token = response.data.access_token,
           refresh_token = response.data.access_token,
           headerOptions = { Authorization: "Bearer " + access_token };
-        const userDetails = getUser(headerOptions);
-        
-        res.cookie('spotifyAccess', access_token, {httpOnly: true, secure: true});
-        res.cookie('spotifyRefresh', refresh_token, {httpOnly: true, secure: true});
-        res.cookie('spotifyUser', userDetails.display_name);
 
-        res.redirect("/#");
+        const userDetails = getUser(headerOptions);
+          req.session.currentUser = userDetails;
+          req.session.isSpotifyLoggedIn = true;
+          req.session.save(() => {
+            res.redirect("/#");
+          });
+          
+       
       });
   }
 });
 
-api.get('/api/currently-playing', (req, res) => {
-
-  let headerOptions = { Authorization: "Bearer " + req.cookies['spotifyAccess'] };
-  axios.get('https://api.spotify.com/v1/me/player/currently-playing', {
+api.get("/api/currently-playing", (req, res) => {
+  if(req.session){
+  let headerOptions = {
+    Authorization: "Bearer " + req.cookies["spotifyAccess"],
+  };
+  axios.get("https://api.spotify.com/v1/me/player/currently-playing", {
       headers: headerOptions,
     })
-       .then(response => {
-        console.log(response);
-          let currentTrack = {
-            songName: response.data.item.name,
-            artistName: response.data.item.artists[0].name
-          }
+    .then((response) => {
+      if (!response.data) {
+        res.status(400).send("No song currently playing");
+      } else {
+        let currentTrack = {
+          songName: response.data.item.name,
+          artistName: response.data.item.artists[0].name,
+        };
+        res.send(currentTrack);
+      }
+    })
+    .catch((e) => console.log('Song not playing'));
+} else {
+  res.status(400).send("User not logged in")
+}
+});
 
-          res.send(currentTrack);
-       
-       })
-       .catch(e => console.log(e));
-
+api.get('/api/session', (req, res) => {
+  if(req.session){
+    //todo check it matches session data?
+    let isLoggedIn = req.session.isSpotifyLoggedIn;
+    res.send('Status: ' + isLoggedIn)
+  }
 })
-
-
 
 api.listen(process.env.DEFAULT_PORT);
 console.log("API running " + process.env.DEFAULT_PORT);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
     HashRouter,
     Route,
@@ -12,12 +12,26 @@ import './NavBar.css'
 
 
 class NavBar extends React.Component {
+  constructor(props){
+    super(props);
+    this.checkLoggedInStatus = this.checkLoggedInStatus.bind(this);
+  }
+
+  
+  checkLoggedInStatus = () => {
+    const songName = this.props.currentTrack ? this.props.currentTrack.songName : '';
+    const artistName = this.props.currentTrack ? this.props.currentTrack.artistName : '';
+    const songStatus = `${songName}, ${artistName}`
+
+    if(this.props.isLoggedIn){
+      return <Fragment> {songStatus}</Fragment>
+    } else {
+      console.log(this.props.isLoggedIn);
+      return <a href="/api/login">Login</a>
+    }
+  }
 
   render() {
-
-    const songTitle = this.props.currentTrack ? this.props.currentTrack.songName : '';
-    const artistName = this.props.currentTrack ? this.props.currentTrack.artistName : '';
-    
 
     return (
      <HashRouter>
@@ -27,8 +41,7 @@ class NavBar extends React.Component {
           <Link to="/search">Search</Link>
         </div>
         <div className="now-playing">
-          {this.props.isLoggedIn && <a href="/api/login">Login</a>} 
-          {songTitle}, {artistName}
+          {this.checkLoggedInStatus()}
         </div>
       </nav>
       <Switch>

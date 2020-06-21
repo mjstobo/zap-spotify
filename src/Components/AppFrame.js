@@ -13,12 +13,10 @@ class AppFrame extends React.Component {
     };  
   }
 
-  componentDidMount(){
-   let isLoggedIn = false;
+  componentDidMount(){ 
+   let isLoggedIn;
    let spotifyAccess = Cookies.get('spotifyAccess');
-   if(spotifyAccess){
-     isLoggedIn = true;
-   }
+   
    axios.get('/api/currently-playing')
         .then(response => {
           const currentTrack = response.data;
