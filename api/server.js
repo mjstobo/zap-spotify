@@ -11,30 +11,33 @@ const bodyParser = require("body-parser");
 const axios = require("axios").default;
 const path = require("path");
 const cors = require("cors");
-const session = require('express-session');
+const session = require("express-session");
 
 //express init
 const api = express();
-
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = "http://localhost:3000/api/callback";
 
 //middlewares
-api.use(session({
+api
+  .use(
+    session({
       resave: false,
       name: "zap-session",
       saveUninitialized: true,
       secret: "archie-pug",
-      cookie: {httpOnly: false}
-  }))
-   .use(cookieParser())
-   .use(cors({
-    origin: "localhost:3000",
-    credentials: false,
-  }))
-    .use(express.json())
-  
+      cookie: { httpOnly: false },
+    })
+  )
+  .use(cookieParser())
+  .use(
+    cors({
+      origin: "localhost:3000",
+      credentials: false,
+    })
+  )
+  .use(express.json());
 
 //db init
 mongoose.connect(process.env.MONGOOSE_DB, { useNewUrlParser: true });
@@ -46,15 +49,6 @@ db.once("open", function () {
 
 //constants
 const stateKey = "spotify_auth_state";
-
-// check logged-in state.
-const checkSpotifyLoggedIn = (res, req, next) => {
-  if(sess.isSpotifyLoggedIn && sess.access_token) {
-    res.redirect('/#');
-  } else {
-    res.redirect('/api/login');
-  }
-}
 
 //routes
 api.get("/api/login", (req, res) => {
@@ -75,12 +69,13 @@ api.get("/api/login", (req, res) => {
   );
 });
 
-const getUser = headerOptions => {
-  axios.get("https://api.spotify.com/v1/me", {
+const getUser = (headerOptions) => {
+  axios
+    .get("https://api.spotify.com/v1/me", {
       headers: headerOptions,
     })
     .then((response) => {
-      return response
+      return response;
     })
     .catch((e) => console.log(e));
 };
@@ -126,54 +121,54 @@ api.get("/api/callback", (req, res) => {
           headerOptions = { Authorization: "Bearer " + access_token };
 
         const userDetails = getUser(headerOptions);
-          req.session.currentUser = userDetails;
-          req.session.isSpotifyLoggedIn = true;
-          req.session.access_token = access_token;
-          req.session.save(() => {
-            res.redirect("/#");
-          });
-          
-       
+        req.session.currentUser = userDetails;
+        req.session.isSpotifyLoggedIn = true;
+        req.session.access_token = access_token;
+        req.session.session_id = uuidv4();
+        req.session.save(() => {
+          res.redirect("/#");
+        });
       });
   }
 });
 
 api.get("/api/currently-playing", (req, res) => {
-  if(req.session){
-  let headerOptions = {
-    Authorization: "Bearer " + req.session.access_token,
-  };
-  axios.get("https://api.spotify.com/v1/me/player/currently-playing", {
-      headers: headerOptions,
-    })
-    .then((response) => {
-      if (!response.data) {
-        res.status(400).send("No song currently playing");
-      } else {
-        let currentTrack = {
-          songName: response.data.item.name,
-          artistName: response.data.item.artists[0].name,
-        };
-        res.send(currentTrack);
-      }
-    })
-    .catch((e) => console.log(e));
-} else {
-  res.status(400).send("User not logged in")
-}
+  if (req.session) {
+    let headerOptions = {
+      Authorization: "Bearer " + req.session.access_token,
+    };
+    axios
+      .get("https://api.spotify.com/v1/me/player/currently-playing", {
+        headers: headerOptions,
+      })
+      .then((response) => {
+        if (!response.data) {
+          res.status(400).send("No song currently playing");
+        } else {
+          let currentTrack = {
+            songName: response.data.item.name,
+            artistName: response.data.item.artists[0].name,
+          };
+          res.send(currentTrack);
+        }
+      })
+      .catch((e) => console.log(e));
+  } else {
+    res.status(400).send("User not logged in");
+  }
 });
 
-api.get('/api/session', express.json(), (req, res) => {
+api.get("/api/session", express.json(), (req, res) => {
   let sess = req.session;
-  if(sess){
+  if (sess) {
     //todo check it matches session data?
     let isLoggedIn = req.session.isSpotifyLoggedIn;
-    let session_token = req.session.access_token;
+    let session_id = req.session.session_id;
     let resObj = {
       loggedIn: isLoggedIn,
-      session_token: session_token
-    }
-    res.status(200).json(resObj)
+      session_id: session_id,
+    };
+    res.status(200).json(resObj);
   }
 });
 

@@ -27,14 +27,13 @@ class AppFrame extends React.Component {
    axios.get('/api/session')
         .then(response => {
           let isLoggedIn = response.data.loggedIn;
-          let session_token = response.data.session_token;
+          let session_id = response.data.session_id;
           if(isLoggedIn) {
             this.getCurrentTrack()
-            console.log(isLoggedIn, session_token)
           }
           this.setState({
             isLoggedIn: isLoggedIn,
-            session_token: session_token
+            session_id: session_id
           })  
    })
    .catch(e => console.log(e))
