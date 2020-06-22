@@ -21,21 +21,20 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = "http://localhost:3000/api/callback";
 
 //middlewares
-api.use(express.json());
-api.use(cookieParser());
-api.use(cors({
+api.use(session({
+      resave: false,
+      name: "zap-session",
+      saveUninitialized: true,
+      secret: "archie-pug",
+      cookie: {httpOnly: false}
+  }))
+   .use(cookieParser())
+   .use(cors({
     origin: "localhost:3000",
     credentials: false,
-  })
-);
-
-api.use(session({
-  genid: (() => uuidv4()),
-  resave: false,
-  name: "zap-session",
-  saveUninitialized: true,
-  secret: "archie-pug"
-}))
+  }))
+    .use(express.json())
+  
 
 //db init
 mongoose.connect(process.env.MONGOOSE_DB, { useNewUrlParser: true });
@@ -49,10 +48,16 @@ db.once("open", function () {
 const stateKey = "spotify_auth_state";
 
 // check logged-in state.
-// TODO
+const checkSpotifyLoggedIn = (res, req, next) => {
+  if(sess.isSpotifyLoggedIn && sess.access_token) {
+    res.redirect('/#');
+  } else {
+    res.redirect('/api/login');
+  }
+}
 
 //routes
-api.get("/api/login", cors(), (req, res) => {
+api.get("/api/login", (req, res) => {
   const state = uuidv4();
   res.cookie(stateKey, state);
 
@@ -75,7 +80,8 @@ const getUser = headerOptions => {
       headers: headerOptions,
     })
     .then((response) => {
-      return response})
+      return response
+    })
     .catch((e) => console.log(e));
 };
 
@@ -116,12 +122,13 @@ api.get("/api/callback", (req, res) => {
       })
       .then((response) => {
         let access_token = response.data.access_token,
-          refresh_token = response.data.access_token,
+          refresh_token = response.data.refresh_token,
           headerOptions = { Authorization: "Bearer " + access_token };
 
         const userDetails = getUser(headerOptions);
           req.session.currentUser = userDetails;
           req.session.isSpotifyLoggedIn = true;
+          req.session.access_token = access_token;
           req.session.save(() => {
             res.redirect("/#");
           });
@@ -134,7 +141,7 @@ api.get("/api/callback", (req, res) => {
 api.get("/api/currently-playing", (req, res) => {
   if(req.session){
   let headerOptions = {
-    Authorization: "Bearer " + req.cookies["spotifyAccess"],
+    Authorization: "Bearer " + req.session.access_token,
   };
   axios.get("https://api.spotify.com/v1/me/player/currently-playing", {
       headers: headerOptions,
@@ -150,19 +157,25 @@ api.get("/api/currently-playing", (req, res) => {
         res.send(currentTrack);
       }
     })
-    .catch((e) => console.log('Song not playing'));
+    .catch((e) => console.log(e));
 } else {
   res.status(400).send("User not logged in")
 }
 });
 
-api.get('/api/session', (req, res) => {
-  if(req.session){
+api.get('/api/session', express.json(), (req, res) => {
+  let sess = req.session;
+  if(sess){
     //todo check it matches session data?
     let isLoggedIn = req.session.isSpotifyLoggedIn;
-    res.send('Status: ' + isLoggedIn)
+    let session_token = req.session.access_token;
+    let resObj = {
+      loggedIn: isLoggedIn,
+      session_token: session_token
+    }
+    res.status(200).json(resObj)
   }
-})
+});
 
 api.listen(process.env.DEFAULT_PORT);
 console.log("API running " + process.env.DEFAULT_PORT);

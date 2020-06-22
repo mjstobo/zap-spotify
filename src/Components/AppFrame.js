@@ -1,6 +1,5 @@
 import React from "react";
 import NavBar from './NavBar/NavBar'
-import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
@@ -13,27 +12,35 @@ class AppFrame extends React.Component {
     };  
   }
 
-  componentDidMount(){ 
-   let isLoggedIn;
-   let spotifyAccess = Cookies.get('spotifyAccess');
-   
-   axios.get('/api/currently-playing')
-        .then(response => {
-          const currentTrack = response.data;
-          this.setState({
-            currentTrack: currentTrack
-          })
-          console.log(currentTrack)
-        })
-        .catch(e => console.log(e));
-
-    this.setState({
-      spotifyToken: spotifyAccess,
-      isLoggedIn: isLoggedIn
+  getCurrentTrack = () => {
+    axios.get('/api/currently-playing')
+    .then(response => {
+      const currentTrack = response.data;
+      this.setState({
+        currentTrack: currentTrack
+      })
     })
-   }
+    .catch(e => console.log(e));
+  }
+
+   componentDidMount(){ 
+   axios.get('/api/session')
+        .then(response => {
+          let isLoggedIn = response.data.loggedIn;
+          let session_token = response.data.session_token;
+          if(isLoggedIn) {
+            this.getCurrentTrack()
+            console.log(isLoggedIn, session_token)
+          }
+          this.setState({
+            isLoggedIn: isLoggedIn,
+            session_token: session_token
+          })  
+   })
+   .catch(e => console.log(e))
+  }
   
-  render() {
+  render(){
     return (
       <div className="App">
         <NavBar currentTrack={this.state.currentTrack} isLoggedIn={this.state.isLoggedIn} />
