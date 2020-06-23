@@ -19,9 +19,18 @@ class NavBar extends React.Component {
 
   
   checkLoggedInStatus = () => {
-    const songName = this.props.currentTrack ? this.props.currentTrack.songName : '';
-    const artistName = this.props.currentTrack ? this.props.currentTrack.artistName : '';
-    const songStatus = `${songName}, ${artistName}`
+
+    let songName = '';
+    let artistName = '';
+    let songStatus = '';
+
+    if(typeof this.props.currentTrack === 'object' && this.props.currentTrack !== null){
+     songName = this.props.currentTrack.songName;
+     artistName = this.props.currentTrack.artistName;
+     songStatus = `${songName}, ${artistName}`
+    } else {
+      songStatus = "Song not playing"
+    }
 
     if(this.props.isLoggedIn){
       return <Fragment> {songStatus}</Fragment>

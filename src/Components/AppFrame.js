@@ -15,11 +15,15 @@ class AppFrame extends React.Component {
   getCurrentTrack = () => {
     axios.get('/api/currently-playing')
     .then(response => {
-      const currentTrack = response.data;
-      this.setState({
-        currentTrack: currentTrack
-      })
-    })
+      let currentTrack = response.data;
+      if(currentTrack === false){
+        currentTrack = 'No song playing right now!';
+      }
+        this.setState({
+          currentTrack: currentTrack
+        })
+      }
+    )
     .catch(e => console.log(e));
   }
 

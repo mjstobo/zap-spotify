@@ -1,15 +1,47 @@
 import React from "react";
 import './Search.css'
+import axios from "axios";
 
 class Search extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      searchTracks: ['test'],
+      searchArtists: '',
+      searchAlbums: ''
+    }
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+  }
+
+  handleSearchSubmit = (e) => {
+    axios.get(`/api/search?search=${this.state.searchValue}`)
+    .then(response => {
+      this.setState({
+        searchTracks: response.data.tracks.items,
+        searchArtists: response.data.artists.items,
+        searchAlbums: response.data.albums.items
+      })
+
+      console.log(response.data.tracks.items[0].name);
+    })
+    .catch(e => console.log(e));
+  }
+
+  handleSearchInputChange = (e) => {
+    this.setState({searchValue: e.target.value});
+  }
+
   render() {
     return (
-      <div className="search-frame">
+      <form className="search-frame">
         <h1>Search!</h1>
-        <div class="search-bar">
-          <input class="search-bar input" label="Search for Artists, Tracks etc"></input>
+        <div className="search-bar">
+        <input type="text" label="Search for songs, albums, artists" value={this.state.value} onChange={this.handleSearchInputChange} />
+          <input type="submit" onClick={this.handleSearchSubmit} value="Submit" />
+          {this.state.searchTracks[0].name}
         </div>
-      </div>
+      </form>
     );
   }
 }

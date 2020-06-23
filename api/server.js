@@ -1,7 +1,7 @@
 //imports
 
 import dotenv from "dotenv/config";
-import express from "express";
+import express, { response } from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { v4 as uuidv4 } from "uuid";
@@ -49,6 +49,8 @@ db.once("open", function () {
 
 //constants
 const stateKey = "spotify_auth_state";
+
+//validate spotify access
 
 //routes
 api.get("/api/login", (req, res) => {
@@ -143,7 +145,7 @@ api.get("/api/currently-playing", (req, res) => {
       })
       .then((response) => {
         if (!response.data) {
-          res.status(400).send("No song currently playing");
+          res.status(400).send(false);
         } else {
           let currentTrack = {
             songName: response.data.item.name,
@@ -169,6 +171,33 @@ api.get("/api/session", express.json(), (req, res) => {
       session_id: session_id,
     };
     res.status(200).json(resObj);
+  }
+});
+
+api.get("/api/search", (req, res) => {
+  let headerOptions = {
+    Authorization: "Bearer " + req.session.access_token,
+  };
+
+  console.log(req.session.access_token);
+  if (req.query.search) {
+    console.log(req.query.search);
+    axios
+      .get("https://api.spotify.com/v1/search", {
+        headers: headerOptions,
+        params: {
+          q: req.query.search,
+          type: "album,track,artist"
+        }
+      })
+      .then((response) => {
+        res.json({
+          tracks: response.data.tracks,
+          artists: response.data.artists,
+          albums: response.data.albums
+        });
+      })
+      .catch((e) => console.log(e));
   }
 });
 
