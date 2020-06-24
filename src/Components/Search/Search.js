@@ -36,9 +36,9 @@ class Search extends React.Component {
     return (
       <form className="search-frame">
         <h1>Search!</h1>
-        <div className="search-bar">
-        <input type="text" label="Search for songs, albums, artists" value={this.state.value} onChange={this.handleSearchInputChange} />
-          <input type="submit" onClick={this.handleSearchSubmit} value="Submit" />
+        <div className="search-component">
+        <input type="text" className="search-bar" label="Search for songs, albums, artists" value={this.state.value} onChange={this.handleSearchInputChange} />
+          <input type="submit" className="search-bar-submit" onClick={this.handleSearchSubmit} value=">>" />
           {this.state.searchTracks[0].name}
         </div>
       </form>

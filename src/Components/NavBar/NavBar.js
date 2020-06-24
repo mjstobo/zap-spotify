@@ -22,42 +22,45 @@ class NavBar extends React.Component {
 
     let songName = '';
     let artistName = '';
-    let songStatus = '';
+    let noSongPlaying = false;
 
     if(typeof this.props.currentTrack === 'object' && this.props.currentTrack !== null){
-     songName = this.props.currentTrack.songName;
-     artistName = this.props.currentTrack.artistName;
-     songStatus = `${songName}, ${artistName}`
+      songName = this.props.currentTrack.songName;
+      artistName = this.props.currentTrack.artistName;
     } else {
-      songStatus = "Song not playing"
+      noSongPlaying = true;
     }
 
     if(this.props.isLoggedIn){
-      return <Fragment> {songStatus}</Fragment>
+      if(noSongPlaying) {
+        return noSongPlaying;
+      }
+      return <Fragment> {songName}, <br/> <span className="artist-name">{artistName}</span></Fragment>
     } else {
       console.log(this.props.isLoggedIn);
-      return <a href="/api/login">Login</a>
+      return <a className="login-cta" href="/api/login">Login</a>
     }
   }
 
   render() {
-
     return (
      <HashRouter>
       <nav className="nav-bar">  
         <div className="nav-bar content">
-          <Link to="/">Home</Link>
-          <Link to="/search">Search</Link>
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/search" className="nav-link">Search</Link>
         </div>
         <div className="now-playing">
           {this.checkLoggedInStatus()}
         </div>
       </nav>
+      <div className="app-body">
       <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/search" component={Search}/>
           <Route component={Error} />
       </Switch>
+      </div>
       </HashRouter>
     );
   }

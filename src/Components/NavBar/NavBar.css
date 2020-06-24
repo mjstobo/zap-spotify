@@ -1,34 +1,67 @@
 .nav-bar {
-    width:  100%;
+    width:  140px;
     margin-right: 2.5px;
     position: fixed;
     display: flex;
-    top: 0;
     left: 0;
-    height: 50px;
-    justify-content: flex-end;
+    height: 100vh;
+    flex-flow: column;
+    background-color: #FFFFFF;
+    padding: 5px;
+}
+
+.login-cta {
+    color: #0A090C;
+    text-decoration: none;
+    border: 3px solid #07393C;
+    padding: 7.5px;
+    display: block;
+    text-align: center;
+}
+
+.login-cta:hover {
+    cursor: pointer;
+    background-color: #07393C;
+    color: #FC9E4F;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
 }
 
 .nav-bar.content {
-    margin: 16px;
-    display: inline;
+    display: flex;
     text-decoration: none;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 60px;
 }
 
-.nav-bar.content a {
-    padding: 14px;
+.nav-bar.content .nav-link {
     text-decoration: none;
-    background-color: #FFFD77;
-    color: #619475;
+    color: #FC9E4F;
     font-weight: 400;
+    padding: 5px;
+    border-bottom: 2.5px solid;
+    text-align: center;
+    width: 62.5%;
 }
+
+.nav-bar.content .nav-link:hover {
+    border-bottom: 2.5px solid #07393C;
+}
+
 
 .nav-bar li {
     width: auto;
 }
 
 .now-playing {
-    margin: 12.5px;
-    font-size: 12px;
     z-index: 100;
+    text-decoration: none;
+    color: #FA824C;
+    font-size: 11px;
+}
+
+.artist-name {
+    color: #0A090C;
 }

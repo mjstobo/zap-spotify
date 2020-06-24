@@ -1,12 +1,11 @@
 .App {
-  background-color: #EFC1A9;
-  color: #41628B;
+  background: #07393C; 
+  color: #FC9E4F;
   height: 100vh;
   width: 100vw;
   display: flex;
-  flex-flow: row;
-  font-family: 'Noto Sans SC', sans-serif;
-  margin: 5px;
+  flex-flow: column;
+  font-family: "Noto Sans SC", sans-serif;
 }
 
 .App h1 {
@@ -16,6 +15,9 @@
 }
 
 html {
-  background-color: #EFC1A9;
+  background-color: #07393C;
 }
 
+.app-body {
+  margin-left: 160px;
+}
