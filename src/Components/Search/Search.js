@@ -1,15 +1,17 @@
 import React from "react";
 import './Search.css'
 import axios from "axios";
+import ResultsTile from '../Results/ResultsTile';
 
 class Search extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      searchTracks: ['test'],
-      searchArtists: '',
-      searchAlbums: ''
+      searchTracks: null,
+      searchArtists: null,
+      searchAlbums: null,
+      resultsList: null
     }
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
@@ -20,12 +22,16 @@ class Search extends React.Component {
       this.setState({
         searchTracks: response.data.tracks.items,
         searchArtists: response.data.artists.items,
-        searchAlbums: response.data.albums.items
+        searchAlbums: response.data.albums.items,
+        resultsList: this.generateResultsTiles(response.data.tracks.items)
       })
-
-      console.log(response.data.tracks.items[0].name);
     })
     .catch(e => console.log(e));
+  }
+
+  generateResultsTiles = (searchResults) => {
+    let tilesList = searchResults.map(result => { return <ResultsTile key={result.name} result={result}/>})
+    return tilesList;
   }
 
   handleSearchInputChange = (e) => {
@@ -39,7 +45,7 @@ class Search extends React.Component {
         <div className="search-component">
         <input type="text" className="search-bar" label="Search for songs, albums, artists" value={this.state.value} onChange={this.handleSearchInputChange} />
           <input type="submit" className="search-bar-submit" onClick={this.handleSearchSubmit} value=">>" />
-          {this.state.searchTracks[0].name}
+          {this.state.resultsList}
         </div>
       </form>
     );
