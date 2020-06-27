@@ -58,7 +58,7 @@ api.get("/api/login", (req, res) => {
   res.cookie(stateKey, state);
 
   const scope =
-    "user-read-private user-read-email user-read-currently-playing user-read-playback-state";
+    "user-read-private user-read-email user-read-currently-playing user-read-playback-state user-modify-playback-state";
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
@@ -198,6 +198,24 @@ api.get("/api/search", (req, res) => {
         });
       })
       .catch((e) => console.log(e));
+  }
+});
+
+api.get('/api/play', (req, res) => {
+  let headerOptions = {
+    Authorization: "Bearer " + req.session.access_token,
+  };
+  console.log(req.query.uri)
+  if(req.query.uri) {
+    axios.put('https://api.spotify.com/v1/me/player/play', {
+      uris: [req.query.uri]
+    }, {
+      headers: headerOptions
+    })
+    .then(response => console.log(response))
+    .catch(e => console.log(e.response.data));
+  } else {
+    res.status(400).send('URI not provided');
   }
 });
 

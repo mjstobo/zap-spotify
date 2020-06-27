@@ -1,6 +1,5 @@
 .search-frame {
     width: 25%;
-    height: 100%;
     display: flex;
     flex-flow: column;
 }
@@ -40,4 +39,12 @@
     background: #FC9E4F;
     color: #07393C;
     cursor: pointer;
+}
+
+.search-results {
+    max-width: 95%;
+    margin-top: 1.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;    
 }

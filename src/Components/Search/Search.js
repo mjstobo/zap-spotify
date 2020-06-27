@@ -1,53 +1,73 @@
 import React from "react";
-import './Search.css'
+import "./Search.css";
 import axios from "axios";
-import ResultsTile from '../Results/ResultsTile';
+import ResultsTile from "../Results/ResultsTile";
 
 class Search extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      searchTracks: null,
-      searchArtists: null,
-      searchAlbums: null,
-      resultsList: null
-    }
+      searchTracks: "",
+      searchArtists: "",
+      searchAlbums: "",
+      resultsList: "",
+      searchValue: "",
+    };
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   handleSearchSubmit = (e) => {
-    axios.get(`/api/search?search=${this.state.searchValue}`)
-    .then(response => {
-      this.setState({
-        searchTracks: response.data.tracks.items,
-        searchArtists: response.data.artists.items,
-        searchAlbums: response.data.albums.items,
-        resultsList: this.generateResultsTiles(response.data.tracks.items)
+     axios
+      .get(`/api/search?search=${this.state.searchValue}`)
+      .then((response) => {
+        this.setState({
+          searchTracks: response.data.tracks.items,
+          searchArtists: response.data.artists.items,
+          searchAlbums: response.data.albums.items,
+        });
+        this.generateResultsTiles(response.data.tracks.items);
       })
-    })
-    .catch(e => console.log(e));
-  }
+      .catch((e) => console.log(e));
+  };
 
   generateResultsTiles = (searchResults) => {
-    let tilesList = searchResults.map(result => { return <ResultsTile key={result.name} result={result}/>})
-    return tilesList;
-  }
+    console.log(searchResults);
+    let tilesList = searchResults.map((result, index) => (
+      <ResultsTile key={index} result={result} />
+    ));
+    this.setState({
+      resultsList: tilesList,
+    });
+  };
 
   handleSearchInputChange = (e) => {
-    this.setState({searchValue: e.target.value});
-  }
+    console.log(e.target.value);
+    this.setState({ searchValue: e.target.value });
+  };
 
   render() {
     return (
-      <form className="search-frame">
-        <h1>Search!</h1>
-        <div className="search-component">
-        <input type="text" className="search-bar" label="Search for songs, albums, artists" value={this.state.value} onChange={this.handleSearchInputChange} />
-          <input type="submit" className="search-bar-submit" onClick={this.handleSearchSubmit} value=">>" />
-          {this.state.resultsList}
-        </div>
-      </form>
+      <>
+        <form className="search-frame">
+          <h1>Search!</h1>
+          <div className="search-component">
+            <input
+              type="text"
+              className="search-bar"
+              label="Search for songs, albums, artists"
+              value={this.state.value}
+              onChange={this.handleSearchInputChange}
+            />
+            <input
+              type="submit"
+              className="search-bar-submit"
+              onClick={this.handleSearchSubmit}
+              value=">>"
+            />
+          </div>
+        </form>
+        <div className="search-results">{this.state.resultsList}</div>
+      </>
     );
   }
 }
