@@ -17,13 +17,16 @@ class ResultsTile extends React.Component {
   }
 
   render() {
-    console.log(this.props.result)
     return (
         <div className="results-tile">
+          <div className="results-tile-content">
             <h4 className="results-heading">{this.props.result.name}</h4>
-            <p>By {this.props.result.artists[0].name}</p>
-            <p>From {this.props.result.album.name}</p>  
-            <button className="play-uri-btn" onClick={this.handleClick}>Play</button> 
+            <div className="results-tile-subcontent">
+              <p className="results-artist">{this.props.result.artists[0].name}</p>
+              <p className="results-album">{this.props.result.album.name}</p>  
+            </div>
+          </div>
+          <button className="play-uri-btn" onClick={this.handleClick}>Play</button> 
         </div>
     );
   }

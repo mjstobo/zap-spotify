@@ -8,6 +8,7 @@ import {
 import Error from '../Error/Error';
 import Home from '../Home/Home';
 import Search from '../Search/Search';
+import ThemedSearch from '../ThemedSearch/ThemedSearch'
 import './NavBar.css'
 
 
@@ -48,7 +49,8 @@ class NavBar extends React.Component {
       <nav className="nav-bar">  
         <div className="nav-bar content">
           <Link to="/" className="nav-link">Home</Link>
-          <Link to="/search" className="nav-link">Search</Link>
+          <Link to="/theme-search" className="nav-link">Theme Search</Link>
+          <Link to="/search" className="nav-link">Search Spotify</Link>
         </div>
         <div className="now-playing">
           {this.checkLoggedInStatus()}
@@ -57,6 +59,7 @@ class NavBar extends React.Component {
       <div className="app-body">
       <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/theme-search" component={ThemedSearch}/>
           <Route exact path="/search" component={Search}/>
           <Route component={Error} />
       </Switch>

@@ -32,8 +32,8 @@
     text-decoration: none;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: center;
     margin-top: 60px;
+    font-size: 14px;
 }
 
 .nav-bar.content .nav-link {
@@ -42,8 +42,7 @@
     font-weight: 400;
     padding: 5px;
     border-bottom: 2.5px solid;
-    text-align: center;
-    width: 62.5%;
+    width: 80%;
 }
 
 .nav-bar.content .nav-link:hover {

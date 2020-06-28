@@ -1,5 +1,5 @@
 .search-frame {
-    width: 25%;
+    width: 30%;
     display: flex;
     flex-flow: column;
 }
@@ -22,10 +22,9 @@
 
     outline: none;
     background-color: #07393C;
-    color: #FC9E4F;
-    font-size: 20px;
+    color: white;
+    font-size: 24px;
 }
-
 .search-bar-submit {
     display: inline-block;
     border: none;
@@ -37,12 +36,11 @@
 .search-bar-submit:hover,
 .search-bar-submit:focus {
     background: #FC9E4F;
-    color: #07393C;
+    color: white;
     cursor: pointer;
 }
 
 .search-results {
-    max-width: 95%;
     margin-top: 1.5em;
     display: flex;
     flex-wrap: wrap;

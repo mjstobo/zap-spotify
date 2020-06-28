@@ -212,7 +212,7 @@ api.get('/api/play', (req, res) => {
     }, {
       headers: headerOptions
     })
-    .then(response => console.log(response))
+    .then(response => res.status(204).send())
     .catch(e => console.log(e.response.data));
   } else {
     res.status(400).send('URI not provided');

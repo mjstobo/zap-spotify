@@ -16,8 +16,8 @@ class Search extends React.Component {
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
-  handleSearchSubmit = (e) => {
-     axios
+  handleSearchSubmit = async () => {
+     await axios
       .get(`/api/search?search=${this.state.searchValue}`)
       .then((response) => {
         this.setState({
@@ -31,7 +31,6 @@ class Search extends React.Component {
   };
 
   generateResultsTiles = (searchResults) => {
-    console.log(searchResults);
     let tilesList = searchResults.map((result, index) => (
       <ResultsTile key={index} result={result} />
     ));
@@ -41,7 +40,6 @@ class Search extends React.Component {
   };
 
   handleSearchInputChange = (e) => {
-    console.log(e.target.value);
     this.setState({ searchValue: e.target.value });
   };
 
@@ -49,12 +47,12 @@ class Search extends React.Component {
     return (
       <>
         <form className="search-frame">
-          <h1>Search!</h1>
+          <h1>Search Spotify</h1>
           <div className="search-component">
             <input
               type="text"
               className="search-bar"
-              label="Search for songs, albums, artists"
+              placeholder="Search for songs, albums, artists"
               value={this.state.value}
               onChange={this.handleSearchInputChange}
             />
@@ -66,7 +64,9 @@ class Search extends React.Component {
             />
           </div>
         </form>
-        <div className="search-results">{this.state.resultsList}</div>
+        <div className="search-results">
+          {this.state.resultsList}
+          </div>
       </>
     );
   }
