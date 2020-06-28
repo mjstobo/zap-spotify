@@ -1,5 +1,6 @@
 import React from "react";
 import "../Search/Search.css";
+import "./ThemedSearch.css"
 import axios from 'axios'
 import ResultsTile from '../Results/ResultsTile'
 
@@ -25,6 +26,9 @@ class ThemedSearch extends React.Component {
            this.generateResultsTiles(response.data.tracks.items);
          })
          .catch((e) => console.log(e));
+
+         
+
      };
    
      generateResultsTiles = (searchResults) => {
@@ -43,6 +47,7 @@ class ThemedSearch extends React.Component {
 
   render() {
     return (
+      <>
         <form className="search-frame">
         <h1>Theme Search</h1>
         <p>Enter a theme keyword, such as 'Weather', and see spotify results and related keyword suggestions!</p>
@@ -62,6 +67,11 @@ class ThemedSearch extends React.Component {
           />
         </div>
       </form>
+      <div className="search-results theme">
+      <p> Spotify results</p>
+      {this.state.resultsList}
+      </div>
+      </>
     );
   }
 }

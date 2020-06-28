@@ -219,5 +219,18 @@ api.get('/api/play', (req, res) => {
   }
 });
 
+api.get('/api/theme-keyword', (req, res) => {
+  let searchTerm = req.query.search;
+  if(searchTerm) {
+    axios.get('http://api.datamuse.com/words', {
+      params: {
+        rel_syn: searchTerm
+      }
+    })
+    .then(response => console.log(response.data))
+    .catch(e => console.log(e));
+  }
+})
+
 api.listen(process.env.DEFAULT_PORT);
 console.log("API running " + process.env.DEFAULT_PORT);
