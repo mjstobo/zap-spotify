@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { v4 as uuidv4 } from "uuid";
 import querystring from "querystring";
+import { nextTick } from "process";
 
 const bodyParser = require("body-parser");
 const axios = require("axios").default;
@@ -18,6 +19,24 @@ const api = express();
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = "http://localhost:3000/api/callback";
+
+//validate spotify access
+
+const checkAuth = (req, res, next) => {
+  console.log("Checking auth..")
+  try {
+    const isSpotifyAuthenticated = req.session.isSpotifyLoggedIn;
+    const isAppAuthenticated = req.session.access_token;
+    if(isSpotifyAuthenticated && isAppAuthenticated) {
+      console.log("Checked auth, firing next fn")
+      next();
+    } else {
+      res.status(401).send("Invalid user")
+    } 
+  } catch (e) {
+      res.status(401).send("Invalid user")
+  }
+}
 
 //middlewares
 api
@@ -50,7 +69,20 @@ db.once("open", function () {
 //constants
 const stateKey = "spotify_auth_state";
 
-//validate spotify access
+
+//functions 
+
+const getUser = (headerOptions) => {
+  axios
+    .get("https://api.spotify.com/v1/me", {
+      headers: headerOptions,
+    })
+    .then((response) => {
+      return response;
+    })
+    .catch((e) => console.log(e));
+};
+
 
 //routes
 api.get("/api/login", (req, res) => {
@@ -70,17 +102,6 @@ api.get("/api/login", (req, res) => {
       })
   );
 });
-
-const getUser = (headerOptions) => {
-  axios
-    .get("https://api.spotify.com/v1/me", {
-      headers: headerOptions,
-    })
-    .then((response) => {
-      return response;
-    })
-    .catch((e) => console.log(e));
-};
 
 api.get("/api/callback", (req, res) => {
   const state = req.query.state || null;
@@ -134,12 +155,12 @@ api.get("/api/callback", (req, res) => {
   }
 });
 
-api.get("/api/currently-playing", (req, res) => {
+api.get("/api/currently-playing", checkAuth, async (req, res) => {
   if (req.session) {
     let headerOptions = {
       Authorization: "Bearer " + req.session.access_token,
     };
-    axios
+    await axios
       .get("https://api.spotify.com/v1/me/player/currently-playing", {
         headers: headerOptions,
       })
@@ -154,13 +175,13 @@ api.get("/api/currently-playing", (req, res) => {
           res.send(currentTrack);
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e.data));
   } else {
     res.status(400).send("User not logged in");
   }
 });
 
-api.get("/api/session", express.json(), (req, res) => {
+api.get("/api/session", checkAuth, express.json(), async (req, res) => {
   let sess = req.session;
   if (sess) {
     //todo check it matches session data?
@@ -174,23 +195,21 @@ api.get("/api/session", express.json(), (req, res) => {
   }
 });
 
-api.get("/api/search", (req, res) => {
+api.get("/api/search", checkAuth, async (req, res) => {
   let headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
   };
 
-  console.log(req.session.access_token);
   if (req.query.search) {
     console.log(req.query.search);
-    axios
-      .get("https://api.spotify.com/v1/search", {
+    await axios.get("https://api.spotify.com/v1/search", {
         headers: headerOptions,
         params: {
           q: req.query.search,
           type: "album,track,artist"
         }
       })
-      .then((response) => {
+      .then(response => {
         res.json({
           tracks: response.data.tracks,
           artists: response.data.artists,
@@ -201,13 +220,13 @@ api.get("/api/search", (req, res) => {
   }
 });
 
-api.get('/api/play', (req, res) => {
+api.get('/api/play', checkAuth, async (req, res) => {
   let headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
   };
   console.log(req.query.uri)
   if(req.query.uri) {
-    axios.put('https://api.spotify.com/v1/me/player/play', {
+    await axios.put('https://api.spotify.com/v1/me/player/play', {
       uris: [req.query.uri]
     }, {
       headers: headerOptions
@@ -219,10 +238,10 @@ api.get('/api/play', (req, res) => {
   }
 });
 
-api.get('/api/theme-keyword', (req, res) => {
+api.get('/api/theme-keyword', checkAuth, async (req, res) => {
   let searchTerm = req.query.search;
   if(searchTerm) {
-    axios.get('http://api.datamuse.com/words', {
+    await axios.get('http://api.datamuse.com/words', {
       params: {
         rel_syn: searchTerm
       }

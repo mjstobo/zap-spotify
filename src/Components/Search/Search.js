@@ -19,13 +19,15 @@ class Search extends React.Component {
   handleSearchSubmit = async () => {
      await axios
       .get(`/api/search?search=${this.state.searchValue}`)
-      .then((response) => {
+      .then(response => {
+        if(response.status === 200){
         this.setState({
           searchTracks: response.data.tracks.items,
           searchArtists: response.data.artists.items,
           searchAlbums: response.data.albums.items,
         });
         this.generateResultsTiles(response.data.tracks.items);
+      }
       })
       .catch((e) => console.log(e));
   };

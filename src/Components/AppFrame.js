@@ -1,54 +1,73 @@
 import React from "react";
-import NavBar from './NavBar/NavBar'
-import axios from 'axios';
-
+import NavBar from "./NavBar/NavigationHandler";
+import axios from "axios";
 
 class AppFrame extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      spotifyToken: false
-    };  
+      isLoaded: false
+    };
   }
 
-  getCurrentTrack = () => {
-    axios.get('/api/currently-playing')
-    .then(response => {
-      let currentTrack = response.data;
-      if(currentTrack === false){
-        currentTrack = 'No song playing right now!';
-      }
-        this.setState({
-          currentTrack: currentTrack
-        })
-      }
-    )
-    .catch(e => console.log(e));
-  }
-
-   componentDidMount(){ 
-   axios.get('/api/session')
-        .then(response => {
-          let isLoggedIn = response.data.loggedIn;
-          let session_id = response.data.session_id;
-          if(isLoggedIn) {
-            this.getCurrentTrack()
-          }
+   componentDidMount = async () => {
+     try {
+      return await this.checkLoggedIn()
+        .then(() => {
           this.setState({
-            isLoggedIn: isLoggedIn,
-            session_id: session_id
-          })  
-   })
-   .catch(e => console.log(e))
+            isLoaded: true
+          });
+        })
+
+     } catch(e) {
+       console.log(e)
+     }
   }
-  
-  render(){
+
+  checkLoggedIn = async () => {
+    try {
+     await axios
+      .get("/api/session")
+      .then((response) => {
+        let isLoggedIn = response.data.loggedIn;
+        let session_id = response.data.session_id;
+        if (isLoggedIn) {
+          this.setState({
+            isLoggedIn: true,
+            session_id: session_id,
+            isLoaded: true
+          });
+        } else {
+          this.setState({
+            isLoaded: true
+          });
+        }
+      })
+      .catch((e) =>
+        this.setState({
+          isLoggedIn: false
+        })
+      );
+  } catch (e) {
+    console.log(e)
+  }
+
+  return 
+}
+
+  render() {
+    if (!this.state.isLoaded) {
+      return (
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      )
+    }
     return (
       <div className="App">
-        <NavBar currentTrack={this.state.currentTrack} isLoggedIn={this.state.isLoggedIn} />
+        <NavBar isLoggedIn={this.state.isLoggedIn} />
       </div>
     );
+
+    
   }
 }
 
