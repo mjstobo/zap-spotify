@@ -10,7 +10,6 @@ import { nextTick } from "process";
 
 const bodyParser = require("body-parser");
 const axios = require("axios").default;
-const path = require("path");
 const cors = require("cors");
 const session = require("express-session");
 
@@ -23,12 +22,10 @@ const redirect_uri = "http://localhost:3000/api/callback";
 //validate spotify access
 
 const checkAuth = (req, res, next) => {
-  console.log("Checking auth..")
   try {
     const isSpotifyAuthenticated = req.session.isSpotifyLoggedIn;
     const isAppAuthenticated = req.session.access_token;
     if(isSpotifyAuthenticated && isAppAuthenticated) {
-      console.log("Checked auth, firing next fn")
       next();
     } else {
       res.status(401).send("Invalid user")

@@ -16,7 +16,8 @@ class Search extends React.Component {
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
-  handleSearchSubmit = async () => {
+  handleSearchSubmit = async (event) => {
+    event.preventDefault();
      await axios
       .get(`/api/search?search=${this.state.searchValue}`)
       .then(response => {
@@ -61,7 +62,7 @@ class Search extends React.Component {
             <input
               type="submit"
               className="search-bar-submit"
-              onClick={this.handleSearchSubmit}
+              onClick={async (e) => {await this.handleSearchSubmit(e)}}
               value=">>"
             />
           </div>
