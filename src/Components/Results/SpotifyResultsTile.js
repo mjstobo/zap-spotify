@@ -2,7 +2,7 @@ import React from "react";
 import './ResultsTile.css';
 import axios from "axios";
 
-class ResultsTile extends React.Component {
+class SpotifyResultsTile extends React.Component {
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -18,7 +18,7 @@ class ResultsTile extends React.Component {
 
   render() {
     return (
-        <div className="results-tile">
+        <div className={this.props.type === 'subresult' ? ('results-tile subresult') : ('results-tile')}>
           <div className="results-tile-content">
             <h4 className="results-heading">{this.props.result.name}</h4>
             <div className="results-tile-subcontent">
@@ -32,4 +32,4 @@ class ResultsTile extends React.Component {
   }
 }
 
-export default ResultsTile;
+export default SpotifyResultsTile;

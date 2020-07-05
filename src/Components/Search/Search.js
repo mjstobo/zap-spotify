@@ -1,7 +1,7 @@
 import React from "react";
 import "./Search.css";
 import axios from "axios";
-import ResultsTile from "../Results/ResultsTile";
+import SpotifyResultsTile from "../Results/SpotifyResultsTile";
 
 class Search extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Search extends React.Component {
 
   generateResultsTiles = (searchResults) => {
     let tilesList = searchResults.map((result, index) => (
-      <ResultsTile key={index} result={result} />
+      <SpotifyResultsTile key={index} result={result} />
     ));
     this.setState({
       resultsList: tilesList,

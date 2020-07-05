@@ -10,6 +10,24 @@
     justify-content: space-between;
 }
 
+.keyword {
+    min-height: 100px;
+    height: auto;
+}
+
+.subresult {
+    min-height: 80px;
+    width: 90%;
+    font-size: 9px;
+}
+
+.keyword-subresults {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+}
+
 .results-tile-content {
     display: flex;
     flex-flow: column;
@@ -35,7 +53,9 @@
 }
 
 .play-uri-btn {
-    color: #0A090C;
+    color: #07393C;
+    font-size: 1rem;
+    font-weight: 450;
     text-decoration: none;
     background-color: white;
     border: 3px solid #FC9E4F;

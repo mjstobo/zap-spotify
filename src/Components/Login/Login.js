@@ -6,7 +6,8 @@ class Login extends React.Component {
     return (
       <div className="login-frame">
         <h1>Login!</h1>
-        <a href="/api/login">Login</a>
+        <p>This application requires a Spotify Premium account. <br/>Click below to login via Spotify. </p>
+        <a className="login-frame-cta" href="/api/login">Spotify Login</a>
       </div>
     );
   }

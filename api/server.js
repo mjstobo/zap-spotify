@@ -6,9 +6,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { v4 as uuidv4 } from "uuid";
 import querystring from "querystring";
-import { nextTick } from "process";
 
-const bodyParser = require("body-parser");
 const axios = require("axios").default;
 const cors = require("cors");
 const session = require("express-session");
@@ -22,7 +20,6 @@ const redirect_uri = "http://localhost:3000/api/callback";
 //validate spotify access
 
 const checkAuth = (req, res, next) => {
-  try {
     const isSpotifyAuthenticated = req.session.isSpotifyLoggedIn;
     const isAppAuthenticated = req.session.access_token;
     if(isSpotifyAuthenticated && isAppAuthenticated) {
@@ -30,9 +27,6 @@ const checkAuth = (req, res, next) => {
     } else {
       res.status(401).send("Invalid user")
     } 
-  } catch (e) {
-      res.status(401).send("Invalid user")
-  }
 }
 
 //middlewares
@@ -235,7 +229,7 @@ api.get('/api/play', checkAuth, async (req, res) => {
   }
 });
 
-api.get('/api/theme-keyword', checkAuth, async (req, res) => {
+api.get('/api/theme-keyword', checkAuth, express.json(), async (req, res) => {
   let searchTerm = req.query.search;
   if(searchTerm) {
     await axios.get('http://api.datamuse.com/words', {
@@ -243,7 +237,7 @@ api.get('/api/theme-keyword', checkAuth, async (req, res) => {
         rel_syn: searchTerm
       }
     })
-    .then(response => console.log(response.data))
+    .then(response => res.status(200).json(response.data))
     .catch(e => console.log(e));
   }
 })

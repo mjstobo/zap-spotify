@@ -2,7 +2,8 @@ import React from "react";
 import "../Search/Search.css";
 import "./ThemedSearch.css"
 import axios from 'axios'
-import ResultsTile from '../Results/ResultsTile'
+//import SpotifyResultsTile from '../Results/SpotifyResultsTile'
+import KeywordResultsTile from '../Results/KeywordResultsTile'
 
 
 class ThemedSearch extends React.Component {
@@ -14,29 +15,22 @@ class ThemedSearch extends React.Component {
         }
     }
 
-    handleSearchSubmit = async () => {
+    handleSearchSubmit = async (e) => {
+      e.preventDefault();
         await axios
-         .get(`/api/search?search=${this.state.searchValue}`)
+         .get(`/api/theme-keyword?search=${this.state.searchValue}`)
          .then((response) => {
-           this.setState({
-             searchTracks: response.data.tracks.items,
-             searchArtists: response.data.artists.items,
-             searchAlbums: response.data.albums.items,
-           });
-           this.generateResultsTiles(response.data.tracks.items);
+           this.generateKeywordResultsTiles(response.data)
          })
          .catch((e) => console.log(e));
-
-         
-
      };
    
-     generateResultsTiles = (searchResults) => {
+     generateKeywordResultsTiles = (searchResults) => {
        let tilesList = searchResults.map((result, index) => (
-         <ResultsTile key={index} result={result} />
+         <KeywordResultsTile key={index} result={result} />
        ));
        this.setState({
-         resultsList: tilesList,
+         keywordsList: tilesList,
        });
      };
    
@@ -62,14 +56,14 @@ class ThemedSearch extends React.Component {
           <input
             type="submit"
             className="search-bar-submit"
-            onClick={this.handleSearchSubmit}
+            onClick={async (e) => {await this.handleSearchSubmit(e)}}
             value=">>"
           />
         </div>
       </form>
       <div className="search-results theme">
-      <p> Spotify results</p>
-      {this.state.resultsList}
+      <p> Related Keywords</p>
+      {this.state.keywordsList}
       </div>
       </>
     );

@@ -1,5 +1,31 @@
 .login-frame {
-    width: 30%;
+    width: 100%;
     display: flex;
     flex-flow: column;
+    align-items: center;
+    margin-top: 15%;
+    text-align: center;
+}
+
+.login-frame h1 {
+    align-self: center;
+    padding: 0;
+}
+
+.login-frame-cta{
+    margin-top: 10px;
+    color: #FC9E4F;
+    text-decoration: none;
+    border: 2px solid #FC9E4F;
+    padding: 7.5px;
+    display: block;
+    text-align: center;
+    width: 25%;
+}
+
+.login-frame-cta:hover {
+    cursor: pointer;
+    background-color: white;
+    color: #07393C;
+    text-decoration: underline;
 }
