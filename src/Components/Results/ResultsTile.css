@@ -1,23 +1,27 @@
 .results-tile {
-    width: 75vw;
+    width: 80%;
     margin: 0.5em;
     padding: 0.5em;
-    background-color: #07393C;
-    border: 2px solid #FC9E4F;
-    color: #FC9E4F;
+    background-color: white;
+    color: #07393C;
     display: flex;
     flex-flow: row;
-    justify-content: space-between;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
+              0 2px 2px rgba(0,0,0,0.20), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.10),
+              0 16px 16px rgba(0,0,0,0.05);
 }
 
 .keyword {
     min-height: 100px;
-    height: auto;
+    max-height: 125px;
 }
 
 .subresult {
     min-height: 80px;
-    width: 90%;
+    width: 80%;
     font-size: 9px;
 }
 
@@ -28,18 +32,27 @@
     align-content: center;
 }
 
+.results-art {
+    width: 160px;
+    height: auto;
+}
+
 .results-tile-content {
     display: flex;
     flex-flow: column;
     align-items: flex-start;
     height: auto;
+    margin: 0.5em;
+    margin-left: 0.75em;
+    flex-grow: 1;
 }
 
 .results-heading {
-    font-weight: 600;
-    margin-bottom: 5px;
-    margin-top: 10px;
-    color:  white;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 1px;
+    margin-top: 7.5px;
+    color: #FC9E4F;
 }
 
 .results-artist {
@@ -53,21 +66,29 @@
 }
 
 .play-uri-btn {
-    color: #07393C;
-    font-size: 1rem;
+    color: white;
+    font-size: 0.8rem;
     font-weight: 450;
     text-decoration: none;
-    background-color: white;
-    border: 3px solid #FC9E4F;
+    background-color: #07393C;
+    border: 3px solid #07393C;
+    border-radius: 7.5px;
     padding-left: 2em;
+    margin-right: 10px;
     padding-right: 2em;
     text-align: center;
     align-self: center;
     height: 40%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
+              0 2px 2px rgba(0,0,0,0.20), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.10),
+              0 16px 16px rgba(0,0,0,0.05);
 }
 
 .play-uri-btn:hover {
     cursor: pointer;
     background-color: #FC9E4F;
-    color: white;
+    color: #07393C;
+    border: 3px solid #FC9E4F;
 }

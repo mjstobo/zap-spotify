@@ -57,12 +57,11 @@ class ThemedSearch extends React.Component {
             type="submit"
             className="search-bar-submit"
             onClick={async (e) => {await this.handleSearchSubmit(e)}}
-            value=">>"
+            value="SEARCH"
           />
         </div>
       </form>
       <div className="search-results theme">
-      <p> Related Keywords</p>
       {this.state.keywordsList}
       </div>
       </>

@@ -9,8 +9,7 @@
 }
 
 .App h1 {
-  flex-flow: row;
-  align-self: flex-start;
+  align-self: center;
   padding-left: 15px;
 }
 

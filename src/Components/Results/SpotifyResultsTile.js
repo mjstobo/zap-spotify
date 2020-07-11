@@ -17,8 +17,10 @@ class SpotifyResultsTile extends React.Component {
   }
 
   render() {
+    console.log(this.props.result.album)
     return (
         <div className={this.props.type === 'subresult' ? ('results-tile subresult') : ('results-tile')}>
+        {this.props.result.album.images[0] && <img className="results-art" src={this.props.result.album.images[0].url}/>}
           <div className="results-tile-content">
             <h4 className="results-heading">{this.props.result.name}</h4>
             <div className="results-tile-subcontent">

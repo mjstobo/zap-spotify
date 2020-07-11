@@ -63,10 +63,11 @@ class Search extends React.Component {
               type="submit"
               className="search-bar-submit"
               onClick={async (e) => {await this.handleSearchSubmit(e)}}
-              value=">>"
+              value="FIND"
             />
           </div>
         </form>
+        {this.state.resultsList && <h4 className="search-summary">Showing results for <span className="search-term">{this.state.searchValue}</span></h4>}
         <div className="search-results">
           {this.state.resultsList}
           </div>
