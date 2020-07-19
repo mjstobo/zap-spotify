@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1.03" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2020-07-19T09:07:09" tests="0" file="cypress\integration\Core\Routing\Routing.spec.js" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Application routes as expected" timestamp="2020-07-19T09:07:10" tests="1" failures="0" time="1.03">
+    <testcase name="Application routes as expected forces the Login page" time="1.03" classname="forces the Login page">
+    </testcase>
+  </testsuite>
+</testsuites>
