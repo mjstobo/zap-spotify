@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
+    "cypress": "^4.10.0",
     "http-proxy-middleware": "^1.0.4",
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",
