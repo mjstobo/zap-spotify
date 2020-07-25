@@ -2,7 +2,6 @@
 
 import dotenv from "dotenv/config";
 import express, { response } from "express";
-import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { v4 as uuidv4 } from "uuid";
 import querystring from "querystring";
@@ -48,14 +47,6 @@ api
     })
   )
   .use(express.json());
-
-//db init
-mongoose.connect(process.env.MONGOOSE_DB, { useNewUrlParser: true });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function () {
-  console.log("db connected");
-});
 
 //constants
 const stateKey = "spotify_auth_state";
