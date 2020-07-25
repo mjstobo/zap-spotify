@@ -16,6 +16,9 @@ class ThemedSearch extends React.Component {
     }
 
     handleSearchSubmit = async (e) => {
+      this.setState({
+        keywordsList: ''
+      })
       e.preventDefault();
         await axios
          .get(`/api/theme-keyword?search=${this.state.searchValue}`)
