@@ -12,7 +12,7 @@ class KeywordResultsTile extends React.Component {
 
   handleClick = async () => {
     await axios
-      .get(`/api/search?search=${this.props.result.word}`)
+      .get(`${process.env.REACT_APP_ENDPOINT}/api/search?search=${this.props.result.word}`)
       .then(response => {
         this.setState({
           searchTracks: response.data.tracks.items,

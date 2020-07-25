@@ -20,7 +20,7 @@ class NavBar extends React.Component {
 
   getCurrentTrack = async () => {
     axios
-      .get("/api/currently-playing")
+      .get(`${process.env.REACT_APP_ENDPOINT}/api/currently-playing`)
       .then((response) => {
         let currentTrack = response.data;
         if (currentTrack === false) {
