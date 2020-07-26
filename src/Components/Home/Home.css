@@ -11,3 +11,16 @@ h2 {
     align-self: center;
 }
 
+.panel-wrapper {
+    width: 100%;
+    display:flex;
+    align-content: space-between;
+}
+
+.left-panel {
+    width: 45%;
+}
+
+.right-panel {
+    width: 45%;
+}

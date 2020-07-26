@@ -50,7 +50,6 @@ class Search extends React.Component {
     return (
       <>
         <form className="search-frame">
-          <h1>Search Spotify</h1>
           <div className="search-component">
             <input
               type="text"
