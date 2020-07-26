@@ -85,3 +85,6 @@ api/node_modules/vary/index.js
 api/node_modules/vary/LICENSE
 api/node_modules/vary/package.json
 api/node_modules/vary/README.md
+cypress/videos/Core/Routing/Routing.spec.js.mp4
+test-results.xml
+test-results.xml

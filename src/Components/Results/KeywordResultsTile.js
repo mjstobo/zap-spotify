@@ -1,12 +1,16 @@
 import React from "react";
 import axios from 'axios'
 import './ResultsTile.css';
-import SpotifyResultsTile from './SpotifyResultsTile'
+import ResultsPanel from './ResultsPanel';
 
 class KeywordResultsTile extends React.Component {
   constructor(props){
     super(props);
-    this.state = {}
+    this.state = {
+      searchTracks: [],
+      showResults: true,
+      hasSearchedSpotify: false
+    }
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -18,20 +22,17 @@ class KeywordResultsTile extends React.Component {
           searchTracks: response.data.tracks.items,
           searchArtists: response.data.artists.items,
           searchAlbums: response.data.albums.items,
+          hasSearchedSpotify: true
         });
-        this.generateResultsTiles(response.data.tracks.items);
       })
       .catch((e) => console.log(e));
   }
 
-  generateResultsTiles = (searchResults) => {
-    let tilesList = searchResults.map((result, index) => (
-      <SpotifyResultsTile key={index} result={result} type='subresult' />
-    ));
+  handleListClick = () => {
     this.setState({
-      resultsList: tilesList,
-    });
-  };
+      showResults: !this.state.showResults
+    })
+  }
 
   render() {
     return (
@@ -40,11 +41,10 @@ class KeywordResultsTile extends React.Component {
           <div className="results-tile-content">
             <h4 className="results-heading">{this.props.result.word}</h4>
           </div>
-          <button className="play-uri-btn" onClick={this.handleClick}>Search Spotify</button> 
+          {!this.state.hasSearchedSpotify &&<button className="play-uri-btn" onClick={this.handleClick}>Search Spotify</button>}
+          {this.state.hasSearchedSpotify && <button className="play-uri-btn" onClick={this.handleListClick}>{this.state.showResults ? 'Show' : 'Hide'} List</button>} 
           </div>
-          <div className="keyword-subresults">
-            {this.state.resultsList}
-          </div>
+          <ResultsPanel result={this.state.searchTracks} showResults={this.state.showResults}/>
           </>
     );
   }

@@ -6,8 +6,12 @@ class SpotifyResultsTile extends React.Component {
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
-  }
 
+    this.state = {
+      subResultClass: this.props.type === 'subresult' ? ('results-tile subresult') : ('results-tile'),
+    };
+
+  }
 
   handleClick = () => {
     axios.get(`${process.env.REACT_APP_ENDPOINT}/api/play`, {
@@ -17,9 +21,8 @@ class SpotifyResultsTile extends React.Component {
   }
 
   render() {
-    console.log(this.props.result.album)
     return (
-        <div className={this.props.type === 'subresult' ? ('results-tile subresult') : ('results-tile')}>
+        <div className={this.state.subResultClass}>
         {this.props.result.album.images[0] && <img className="results-art" src={this.props.result.album.images[0].url}/>}
           <div className="results-tile-content">
             <h4 className="results-heading">{this.props.result.name}</h4>

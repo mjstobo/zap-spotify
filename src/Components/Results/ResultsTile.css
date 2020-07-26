@@ -21,15 +21,23 @@
 
 .subresult {
     min-height: 80px;
-    width: 80%;
+    width: 78%;
     font-size: 9px;
+    border-left: solid 6px #FC9E4F;
+    border-right: solid 6px #FC9E4F;
 }
 
 .keyword-subresults {
     width: 100%;
     display: flex;
     flex-flow: column;
-    align-content: center;
+    align-items: center;
+}
+
+.collapse {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
 }
 
 .results-art {

@@ -225,7 +225,7 @@ api.get('/api/theme-keyword', checkAuth, express.json(), async (req, res) => {
   if(searchTerm) {
     await axios.get('http://api.datamuse.com/words', {
       params: {
-        rel_syn: searchTerm
+        ml: searchTerm
       }
     })
     .then(response => res.status(200).json(response.data))
