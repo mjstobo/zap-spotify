@@ -2,6 +2,8 @@ import React from "react";
 import axios from 'axios'
 import './ResultsTile.css';
 import ResultsPanel from './ResultsPanel';
+import upSvg from '../../up.svg'
+import downSvg from '../../down.svg'
 
 class KeywordResultsTile extends React.Component {
   constructor(props){
@@ -42,7 +44,11 @@ class KeywordResultsTile extends React.Component {
             <h4 className="results-heading">{this.props.result.word}</h4>
           </div>
           {!this.state.hasSearchedSpotify &&<button className="play-uri-btn" onClick={this.handleClick}>Search Spotify</button>}
-          {this.state.hasSearchedSpotify && <button className="play-uri-btn" onClick={this.handleListClick}>{this.state.showResults ? 'Hide' : 'Show'} List</button>} 
+          {this.state.hasSearchedSpotify && 
+          
+           <button className="play-uri-btn" onClick={this.handleListClick}>
+               <img className="chevron-svg" src={this.state.showResults ? upSvg : downSvg}/>
+            </button>} 
           </div>
           <ResultsPanel result={this.state.searchTracks} showResults={this.state.showResults}/>
           </>

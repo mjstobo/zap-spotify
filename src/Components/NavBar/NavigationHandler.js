@@ -100,9 +100,6 @@ class NavBar extends React.Component {
             <Link to="/" className="nav-link">
               Home
             </Link>
-            <Link to="/theme-search" className="nav-link">
-              Theme Search
-            </Link>
             <Link to="/search" className="nav-link">
               Search Spotify
             </Link>

@@ -1,4 +1,13 @@
 .home-frame {
     width: 100%;
     min-width: 300px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
+
+h2 {
+    margin-top: 0;
+    align-self: center;
+}
+

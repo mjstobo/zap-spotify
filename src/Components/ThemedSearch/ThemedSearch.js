@@ -46,13 +46,11 @@ class ThemedSearch extends React.Component {
     return (
       <>
         <form className="search-frame">
-        <h1>Theme Search</h1>
-        <p>Enter a theme keyword, such as 'Weather', and see spotify results and related keyword suggestions!</p>
         <div className="search-component">
           <input
             type="text"
             className="search-bar"
-            placeholder="Search for songs, albums, artists"
+            placeholder="Search for terms related to your playlist theme!"
             value={this.state.searchValue}
             onChange={this.handleSearchInputChange}
           />
@@ -64,6 +62,7 @@ class ThemedSearch extends React.Component {
           />
         </div>
       </form>
+      {this.state.keywordsList && <h4 className="search-summary">Showing results for <span className="search-term">{this.state.searchValue}</span></h4>}
       <div className="search-results theme">
       {this.state.keywordsList}
       </div>
