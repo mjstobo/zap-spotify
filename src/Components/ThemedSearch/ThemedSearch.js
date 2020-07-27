@@ -11,18 +11,32 @@ class ThemedSearch extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            searchValue: ''
+          keywordsList: "",
+          isLoaded: false
         }
     }
 
-    handleSearchSubmit = async (e) => {
-      this.setState({
-        keywordsList: ''
-      })
-      e.preventDefault();
+    componentDidUpdate(prevProps) {
+      if(prevProps.searchValue !== this.props.searchValue){
+        this.setState({
+          isLoaded: false
+        })
+        this.searchForTerm(this.props.searchValue)
+      }
+    }
+
+    async componentDidMount() {
+      await this.searchForTerm(this.props.searchValue)
+    }
+
+    searchForTerm = async (e) => {
         await axios
-         .get(`/api/theme-keyword?search=${this.state.searchValue}`)
+         .get(`/api/theme-keyword?search=${e}`)
          .then((response) => {
+           this.setState({
+             searchValue: e,
+             isLoaded: true
+           })
            this.generateKeywordResultsTiles(response.data)
          })
          .catch((e) => console.log(e));
@@ -36,33 +50,23 @@ class ThemedSearch extends React.Component {
          keywordsList: tilesList,
        });
      };
-   
-     handleSearchInputChange = (e) => {
-       this.setState({ searchValue: e.target.value });
-     };
-
-
+  
   render() {
+    if (!this.state.isLoaded) {
+      return (
+      <div className="searching loader">
+        <div className="sk-folding-cube">
+          <div className="sk-cube1 sk-cube"></div>
+          <div className="sk-cube2 sk-cube"></div>
+          <div className="sk-cube4 sk-cube"></div>
+          <div className="sk-cube3 sk-cube"></div>
+        </div>
+      </div>
+      );
+    }
     return (
       <>
-        <form className="search-frame">
-        <div className="search-component">
-          <input
-            type="text"
-            className="search-bar"
-            placeholder="Search for terms related to your playlist theme!"
-            value={this.state.searchValue}
-            onChange={this.handleSearchInputChange}
-          />
-          <input
-            type="submit"
-            className="search-bar-submit"
-            onClick={async (e) => {await this.handleSearchSubmit(e)}}
-            value="SEARCH"
-          />
-        </div>
-      </form>
-      {this.state.keywordsList && <h4 className="search-summary">Showing results for <span className="search-term">{this.state.searchValue}</span></h4>}
+      {this.state.keywordsList && <h4 className="search-summary">Related keywords for <span className="search-term">{this.state.searchValue}</span></h4>}
       <div className="search-results theme">
       {this.state.keywordsList}
       </div>

@@ -79,3 +79,9 @@ h1 {
 .search-term {
     color: #FC9E4F;
 }
+
+.searching {
+    display: flex;
+    margin-top: 50%;
+    min-height: 400px;
+}

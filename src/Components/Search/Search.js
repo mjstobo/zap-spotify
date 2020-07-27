@@ -11,21 +11,34 @@ class Search extends React.Component {
       searchArtists: "",
       searchAlbums: "",
       resultsList: "",
-      searchValue: "",
+      searchValue: ""
     };
-    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
-  handleSearchSubmit = async (event) => {
-    event.preventDefault();
+   componentDidUpdate(prevProps) {
+    if(prevProps.searchValue !== this.props.searchValue){
+      this.setState({
+        isLoaded: false
+      })
+      this.searchForTerm(this.props.searchValue)
+    }
+  }
+
+  async componentDidMount() {
+    await this.searchForTerm(this.props.searchValue)
+  }
+
+  searchForTerm = async (e) => {
      await axios
-      .get(`/api/search?search=${this.state.searchValue}`)
+      .get(`/api/search?search=${e}`)
       .then(response => {
         if(response.status === 200){
         this.setState({
+          searchValue: e,
           searchTracks: response.data.tracks.items,
           searchArtists: response.data.artists.items,
           searchAlbums: response.data.albums.items,
+          isLoaded: true
         });
         this.generateResultsTiles(response.data.tracks.items);
       }
@@ -42,31 +55,22 @@ class Search extends React.Component {
     });
   };
 
-  handleSearchInputChange = (e) => {
-    this.setState({ searchValue: e.target.value });
-  };
-
   render() {
+    if (!this.state.isLoaded) {
+      return (
+      <div className="searching loader">
+        <div className="sk-folding-cube">
+          <div className="sk-cube1 sk-cube"></div>
+          <div className="sk-cube2 sk-cube"></div>
+          <div className="sk-cube4 sk-cube"></div>
+          <div className="sk-cube3 sk-cube"></div>
+        </div>
+      </div>
+      );
+    }
     return (
       <>
-        <form className="search-frame">
-          <div className="search-component">
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Search for songs, albums, artists"
-              value={this.state.value}
-              onChange={this.handleSearchInputChange}
-            />
-            <input
-              type="submit"
-              className="search-bar-submit"
-              onClick={async (e) => {await this.handleSearchSubmit(e)}}
-              value="FIND"
-            />
-          </div>
-        </form>
-        {this.state.resultsList && <h4 className="search-summary">Showing results for <span className="search-term">{this.state.searchValue}</span></h4>}
+        {this.state.resultsList && <h4 className="search-summary">Spotify results for <span className="search-term">{this.state.searchValue}</span></h4>}
         <div className="search-results">
           {this.state.resultsList}
           </div>
