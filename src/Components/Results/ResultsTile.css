@@ -80,13 +80,13 @@
     text-decoration: none;
     background-color: #07393C;
     border: 3px solid #07393C;
-    border-radius: 7.5px;
-    padding-left: 2em;
+    border-radius: 5px;
+    padding-left: 1.5em;
     margin-right: 10px;
-    padding-right: 2em;
+    padding-right: 1.5em;
     text-align: center;
     align-self: center;
-    height: 40%;
+    height: 35%;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
               0 2px 2px rgba(0,0,0,0.20), 
               0 4px 4px rgba(0,0,0,0.15), 
@@ -99,6 +99,48 @@
     background-color: #FC9E4F;
     color: #07393C;
     border: 3px solid #FC9E4F;
+    transition: all 0.1s linear;
+    box-shadow: 0 1.5px 1.5px rgba(0,0,0,0.25), 
+              0 3px 3px rgba(0,0,0,0.20), 
+              0 5px 5px rgba(0,0,0,0.15), 
+              0 9px 9px rgba(0,0,0,0.10),
+              0 18px 18px rgba(0,0,0,0.05);
+}
+
+
+.playlist-btn {
+    color: #07393C;
+    font-size: 0.8rem;
+    font-weight: 450;
+    text-decoration: none;
+    background-color: white;
+    border: 3px solid #07393C;
+    border-radius: 5px;
+    padding-left: 1.5em;
+    margin-right: 10px;
+    padding-right: 1.5em;
+    text-align: center;
+    align-self: center;
+    height: 35%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
+              0 2px 2px rgba(0,0,0,0.20), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.10),
+              0 16px 16px rgba(0,0,0,0.05);
+    transition: all 0.1s linear;
+
+}
+
+.playlist-btn:hover {
+    cursor: pointer;
+    background-color: #07393C;
+    color: #FC9E4F;
+    border: 3px solid #07393C;
+    box-shadow: 0 1.5px 1.5px rgba(0,0,0,0.25), 
+              0 3px 3px rgba(0,0,0,0.20), 
+              0 5px 5px rgba(0,0,0,0.15), 
+              0 9px 9px rgba(0,0,0,0.10),
+              0 18px 18px rgba(0,0,0,0.05);
 }
 
 .chevron-svg {

@@ -5,7 +5,7 @@ import axios from "axios";
 class SpotifyResultsTile extends React.Component {
   constructor(props){
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handlePlayClick = this.handlePlayClick.bind(this);
 
     this.state = {
       subResultClass: this.props.type === 'subresult' ? ('results-tile subresult') : ('results-tile'),
@@ -13,7 +13,7 @@ class SpotifyResultsTile extends React.Component {
 
   }
 
-  handleClick = () => {
+  handlePlayClick = async () => {
     axios.get(`${process.env.REACT_APP_ENDPOINT}/api/play`, {
     params: {
       uri: this.props.result.uri
@@ -31,7 +31,8 @@ class SpotifyResultsTile extends React.Component {
               <p className="results-album">{this.props.result.album.name}</p>  
             </div>
           </div>
-          <button className="play-uri-btn" onClick={this.handleClick}>Play</button> 
+          <button className="play-uri-btn" onClick={this.handlePlayClick}>Play</button>
+          <button className="playlist-btn" onClick={this.handleAddToPlaylistClick}>+</button> 
         </div>
     );
   }
