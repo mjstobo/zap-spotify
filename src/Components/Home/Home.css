@@ -14,7 +14,7 @@ h2 {
 .panel-wrapper {
     width: 100%;
     display:flex;
-    align-content: space-between;
+    justify-content: center;
 }
 
 .left-panel {
