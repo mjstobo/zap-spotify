@@ -16,6 +16,11 @@ const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = "http://localhost:3000/api/callback";
 
+//routes import
+
+const getCurrentlyPlayingTrack = require("./routes/currentlyPlaying")
+const getSession = require('./routes/session')
+
 //validate spotify access
 
 const checkAuth = (req, res, next) => {
@@ -137,45 +142,9 @@ api.get("/api/callback", (req, res) => {
   }
 });
 
-api.get("/api/currently-playing", checkAuth, async (req, res) => {
-  if (req.session) {
-    let headerOptions = {
-      Authorization: "Bearer " + req.session.access_token,
-    };
-    await axios
-      .get("https://api.spotify.com/v1/me/player/currently-playing", {
-        headers: headerOptions,
-      })
-      .then((response) => {
-        if (!response.data) {
-          res.status(400).send(false);
-        } else {
-          let currentTrack = {
-            songName: response.data.item.name,
-            artistName: response.data.item.artists[0].name,
-          };
-          res.send(currentTrack);
-        }
-      })
-      .catch((e) => console.log(e.data));
-  } else {
-    res.status(400).send("User not logged in");
-  }
-});
+api.use("/", checkAuth, getCurrentlyPlayingTrack);
 
-api.get("/api/session", checkAuth, express.json(), async (req, res) => {
-  let sess = req.session;
-  if (sess) {
-    //todo check it matches session data?
-    let isLoggedIn = req.session.isSpotifyLoggedIn;
-    let session_id = req.session.session_id;
-    let resObj = {
-      loggedIn: isLoggedIn,
-      session_id: session_id,
-    };
-    res.status(200).json(resObj);
-  }
-});
+api.use("/", checkAuth, express.json(), getSession);
 
 api.get("/api/search", checkAuth, async (req, res) => {
   let headerOptions = {
@@ -206,7 +175,6 @@ api.get('/api/play', checkAuth, async (req, res) => {
   let headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
   };
-  console.log(req.query.uri)
   if(req.query.uri) {
     await axios.put('https://api.spotify.com/v1/me/player/play', {
       uris: [req.query.uri]

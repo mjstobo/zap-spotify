@@ -10,7 +10,6 @@ class SpotifyResultsTile extends React.Component {
     this.state = {
       subResultClass: this.props.type === 'subresult' ? ('results-tile subresult') : ('results-tile'),
     };
-
   }
 
   handlePlayClick = async () => {

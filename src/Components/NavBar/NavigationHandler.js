@@ -14,7 +14,7 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoaded: false 
+      isLoaded: false,
     };
   }
 
@@ -23,12 +23,11 @@ class NavBar extends React.Component {
       .get(`${process.env.REACT_APP_ENDPOINT}/api/currently-playing`)
       .then((response) => {
         let currentTrack = response.data;
-        if (currentTrack === false) {
+
+        if (!currentTrack) {
           currentTrack = "No song playing right now!";
         }
-        let songName = "";
-        let artistName = "";
-        let noSongPlaying = false;
+        let songName, artistName = ""
 
         if (typeof currentTrack === "object" && currentTrack !== null) {
           songName = currentTrack.songName;
@@ -40,11 +39,11 @@ class NavBar extends React.Component {
           this.setState({
             currentTrack: currentTrack,
             currentTrackHtml: returnHtml,
-            isLoaded: true
+            isLoaded: true,
           });
           return returnHtml;
         } else {
-          return noSongPlaying;
+          return false;
         }
       })
       .catch((e) => console.log("Failed to get track"));
@@ -117,7 +116,6 @@ class NavBar extends React.Component {
         </div>
       </HashRouter>
     );
-
   }
 }
 
