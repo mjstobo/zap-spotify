@@ -33,7 +33,4 @@ const getCurrentlyPlayingTrack = async (req, res) => {
 
 routes.get("/api/currently-playing", getCurrentlyPlayingTrack);
    
-
- 
-
 module.exports = routes;

@@ -8,4 +8,4 @@ const checkAuth = (req, res, next) => {
     } 
 }
 
-module.export = checkAuth
+module.exports = checkAuth
