@@ -21,7 +21,6 @@ const getThemeKeyword = require("./routes/themeKeyword");
 //validate spotify access
 const checkAuth = require('./utils/checkAuth');
 
-
 const sessionData = {
   resave: true,
   name: "zap-session",
@@ -43,7 +42,6 @@ api.use("/", checkAuth, express.json(), getSession);
 api.use("/", checkAuth, searchSpotifyByKeyword);
 api.use("/", checkAuth, playSpotifyTrack);
 api.use("/", checkAuth, express.json(), getThemeKeyword);
-
 
 // run app
 api.listen(process.env.DEFAULT_PORT);

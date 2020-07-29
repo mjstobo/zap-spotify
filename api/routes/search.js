@@ -1,8 +1,6 @@
 const express = require('express');
 const axios = require('axios').default;
 const routes = express.Router();
-const checkAuth = require('../utils/checkAuth');
-
 
 const  searchSpotifyByKeyword = async (req, res) => {
   let headerOptions = {
