@@ -17,6 +17,7 @@ const getSession = require("./routes/session");
 const searchSpotifyByKeyword = require("./routes/search");
 const playSpotifyTrack = require("./routes/playSpotify");
 const getThemeKeyword = require("./routes/themeKeyword");
+const getPlaylists = require("./routes/playlist");
 
 //validate spotify access
 const checkAuth = require('./utils/checkAuth');
@@ -42,6 +43,7 @@ api.use("/", checkAuth, express.json(), getSession);
 api.use("/", checkAuth, searchSpotifyByKeyword);
 api.use("/", checkAuth, playSpotifyTrack);
 api.use("/", checkAuth, express.json(), getThemeKeyword);
+api.use("/", checkAuth, getPlaylists)
 
 // run app
 api.listen(process.env.DEFAULT_PORT);
