@@ -2,8 +2,8 @@ import React from "react";
 import { HashRouter, Route, Switch, Link, Redirect } from "react-router-dom";
 import Error from "../Error/Error";
 import Home from "../Home/Home";
-import Search from "../Search/Search";
 import ThemedSearch from "../ThemedSearch/ThemedSearch";
+import Playlist from "../Playlist/Playlist";
 import Login from "../Login/Login";
 import CurrentlyPlaying from "../CurrentlyPlaying/CurrentlyPlaying";
 
@@ -99,8 +99,8 @@ class NavBar extends React.Component {
             <Link to="/" className="nav-link">
               Home
             </Link>
-            <Link to="/search" className="nav-link">
-              Search Spotify
+            <Link to="/playlist" className="nav-link">
+              Playlist
             </Link>
           </div>
           <div className="now-playing">{this.state.currentTrackHtml}</div>
@@ -109,7 +109,7 @@ class NavBar extends React.Component {
           <Switch>
             <PublicRoute exact path="/login" component={Login} />
             <PrivateRoute exact path="/theme-search" component={ThemedSearch} />
-            <PrivateRoute exact path="/search" component={Search} />
+            <PrivateRoute exact path="/playlist" component={Playlist} />
             <PrivateRoute exact path="/" component={Home} />
             <PublicRoute component={Error} />
           </Switch>

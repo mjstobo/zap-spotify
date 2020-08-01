@@ -23,6 +23,14 @@ const createZapPlaylist = async (headerOptions, currUserId) => {
     .catch((e) => console.log(e));
 };
 
+const getTracks = async (playlistUrl, headerOptions) => {
+  return await axios
+    .get(playlistUrl, { headers: headerOptions })
+    .then((response) => {
+      return response.data.items;
+    });
+};
+
 const getPlaylists = async (req, res) => {
   const headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
@@ -30,23 +38,23 @@ const getPlaylists = async (req, res) => {
 
   let zapPlaylist;
   let currUserId = req.session.currentUser.id;
-  let response = await axios.get("https://api.spotify.com/v1/me/playlists", { headers: headerOptions })
+  let existingPlaylist = await axios
+    .get("https://api.spotify.com/v1/me/playlists", { headers: headerOptions })
     .then((response) => {
       zapPlaylist = getZapPlaylistFromList(response.data.items);
       return zapPlaylist;
     })
     .catch((e) => console.log(e));
-  
-    if (response.length === 0) {
-      console.log("Playlist doesn't exist. Creating new one");
-      await createZapPlaylist(headerOptions, currUserId).then((p) => {
-        console.log("Playlist created, responding.");
-        res.json(p)
-      });
-    } else {
-      res.json(response);
-    }
-  
+
+  if (response.length === 0) {
+    await createZapPlaylist(headerOptions, currUserId).then((newPlaylist) => {
+      res.json(newPlaylist);
+    });
+  } else {
+    await getTracks(existingPlaylist[0].tracks.href, headerOptions)
+      .then((playlistTracks) => res.json({existingPlaylist, playlistTracks}))
+      .catch((e) => console.log(e));
+  }
 };
 routes.get("/api/playlists", getPlaylists);
 
