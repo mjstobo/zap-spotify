@@ -25,7 +25,7 @@ class SpotifyPlaylistTile extends React.Component {
           track_id: this.props.result.uri
         }})
         .then(response => {
-            
+            this.props.removeFromPlaylist(this.props.result.id);
         })
   }
 
