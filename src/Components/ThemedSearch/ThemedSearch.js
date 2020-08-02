@@ -44,7 +44,7 @@ class ThemedSearch extends React.Component {
    
      generateKeywordResultsTiles = (searchResults) => {
        let tilesList = searchResults.map((result, index) => (
-         <KeywordResultsTile key={index} result={result} />
+         <KeywordResultsTile key={index} result={result} playlistId={this.props.playlistMetadata.id} />
        ));
        this.setState({
          keywordsList: tilesList,

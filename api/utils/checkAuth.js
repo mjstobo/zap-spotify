@@ -4,7 +4,7 @@ const checkAuth = (req, res, next) => {
     if(isSpotifyAuthenticated && isAppAuthenticated) {
       next();
     } else {
-      res.status(401).send("Invalid user")
+      res.redirect("/#/login");
     } 
 }
 

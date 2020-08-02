@@ -46,11 +46,10 @@ const removeTrackFromPlaylist = async (req, res) => {
   }
 
   if (req.query.track_id && req.query.playlist_id) {
-
     let tracksArr = [];
-    tracksArr.push( {
+    tracksArr.push({
       uri: req.query.track_id,
-    })
+    });
 
     await axios
       .delete(
@@ -95,7 +94,38 @@ const getPlaylists = async (req, res) => {
   }
 };
 
+const addTrackToPlaylist = async (req, res) => {
+  const headerOptions = {
+    Authorization: "Bearer " + req.session.access_token,
+    "Content-Type": "application/json",
+  };
+
+  if (!req.query.uris) {
+    res.send("No track specified");
+  }
+
+  if (req.query.uris) {
+
+    let trackArr = [];
+    trackArr.push(req.query.uris);
+
+    await axios
+      .post(
+        `https://api.spotify.com/v1/playlists/${req.query.playlist_id}/tracks`,
+        { uris: trackArr },
+        {
+          headers: headerOptions,
+        }
+      )
+      .then((response) => {
+        res.status(200).json("Added successfully");
+      })
+      .catch((e) => console.log(e));
+  }
+};
+
 routes.get("/api/remove-track", removeTrackFromPlaylist);
+routes.get("/api/add-track", addTrackToPlaylist);
 routes.get("/api/playlists", getPlaylists);
 
 module.exports = routes;

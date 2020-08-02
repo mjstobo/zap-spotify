@@ -11,6 +11,7 @@ class ResultsPanel extends React.Component {
 
       componentDidMount() {
           this.generateResultsTiles(this.props.result);
+          console.log(this.props.playlistId)
       }
 
       componentDidUpdate(prevProps) {
@@ -23,7 +24,7 @@ class ResultsPanel extends React.Component {
 
       generateResultsTiles = (searchResults) => {
         let tilesList = searchResults.map((result, index) => (
-          <SpotifyResultsTile key={index} result={result} type='subresult' />
+          <SpotifyResultsTile key={index} result={result} type='subresult' playlistId={this.props.playlistId} />
         ));
         this.setState({
           resultsList: tilesList,

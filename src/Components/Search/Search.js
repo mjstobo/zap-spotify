@@ -48,7 +48,7 @@ class Search extends React.Component {
 
   generateResultsTiles = (searchResults) => {
     let tilesList = searchResults.map((result, index) => (
-      <SpotifyResultsTile key={index} result={result} />
+      <SpotifyResultsTile key={index} result={result} playlistId={this.props.playlistMetadata.id}/>
     ));
     this.setState({
       resultsList: tilesList,

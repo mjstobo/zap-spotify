@@ -19,6 +19,17 @@ class SpotifyResultsTile extends React.Component {
     }});
   }
 
+  handleAddToPlaylistClick = async () => {
+    console.log(this.props.playlistId)
+    await axios.get('/api/add-track', {
+      params: {
+        uris: this.props.result.uri,
+        playlist_id: this.props.playlistId
+      }
+    })
+    .then(response => console.log(response.data));
+  }
+
   render() {
     return (
         <div className={this.state.subResultClass}>

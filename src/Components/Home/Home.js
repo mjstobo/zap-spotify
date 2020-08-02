@@ -2,6 +2,7 @@ import React from "react";
 import './Home.css';
 import ThemedSearch from '../ThemedSearch/ThemedSearch'
 import Search from '../Search/Search';
+import axios from "axios";
 
 class Home extends React.Component {
 
@@ -15,7 +16,15 @@ class Home extends React.Component {
 
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  async componentDidMount() {
+    this._isMounted = true;
+    await this.retrievePlaylistData();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleSearchInputChange(e){
@@ -29,6 +38,22 @@ class Home extends React.Component {
       hasSearched: true
     })
   };
+
+  retrievePlaylistData = async () => {
+    let data = await axios
+      .get("/api/playlists")
+      .then((response) => {
+
+      if(this._isMounted){
+        this.setState({
+          playlistMetadata: response.data.existingPlaylist[0],
+          playlistTracks: response.data.playlistTracks
+        })
+      }
+      })
+      .catch((e) => console.log(e));
+    return data;
+  }
 
   render() {
     return (
@@ -54,10 +79,10 @@ class Home extends React.Component {
 
         <div className="panel-wrapper">
         <div className="left-panel">
-        {this.state.hasSearched && <Search searchValue={this.state.searchedTerm}/> }
+        {this.state.hasSearched && <Search searchValue={this.state.searchedTerm} playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks}/> }
         </div>
         <div className="right-panel">
-        {this.state.hasSearched && <ThemedSearch searchValue={this.state.searchedTerm} />}
+        {this.state.hasSearched && <ThemedSearch searchValue={this.state.searchedTerm} playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks} />}
         </div>
       </div>
       </div>

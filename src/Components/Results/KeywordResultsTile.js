@@ -50,7 +50,7 @@ class KeywordResultsTile extends React.Component {
                <img className="chevron-svg" alt="Open / Close results accordion" src={this.state.showResults ? upSvg : downSvg}/>
             </button>} 
           </div>
-          <ResultsPanel result={this.state.searchTracks} showResults={this.state.showResults}/>
+          <ResultsPanel result={this.state.searchTracks} showResults={this.state.showResults} playlistId={this.props.playlistId}/>
           </>
     );
   }
