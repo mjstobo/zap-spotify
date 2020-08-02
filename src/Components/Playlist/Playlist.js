@@ -49,7 +49,7 @@ class Playlist extends React.Component {
 
   render() {
     return (
-    <div>
+    <div className="search-results">
       {this.state.playlistTiles}
     </div>
     )}
