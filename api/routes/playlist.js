@@ -31,6 +31,44 @@ const getTracks = async (playlistUrl, headerOptions) => {
     });
 };
 
+const removeTrackFromPlaylist = async (req, res) => {
+  const headerOptions = {
+    Authorization: "Bearer " + req.session.access_token,
+    "Content-Type": "application/json",
+  };
+
+  if (!req.query.playlist_id) {
+    res.send("No playlist specified");
+  }
+
+  if (!req.query.track_id) {
+    res.send("No track specified");
+  }
+
+  if (req.query.track_id && req.query.playlist_id) {
+
+    let tracksArr = [];
+    tracksArr.push( {
+      uri: req.query.track_id,
+    })
+
+    await axios
+      .delete(
+        `https://api.spotify.com/v1/playlists/${req.query.playlist_id}/tracks`,
+        {
+          headers: headerOptions,
+          data: {
+            tracks: tracksArr,
+          },
+        }
+      )
+      .then((response) => {
+        res.status(200).json("Removed successfully");
+      })
+      .catch((e) => console.log(e.data));
+  }
+};
+
 const getPlaylists = async (req, res) => {
   const headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
@@ -52,10 +90,12 @@ const getPlaylists = async (req, res) => {
     });
   } else {
     await getTracks(existingPlaylist[0].tracks.href, headerOptions)
-      .then((playlistTracks) => res.json({existingPlaylist, playlistTracks}))
+      .then((playlistTracks) => res.json({ existingPlaylist, playlistTracks }))
       .catch((e) => console.log(e));
   }
 };
+
+routes.get("/api/remove-track", removeTrackFromPlaylist);
 routes.get("/api/playlists", getPlaylists);
 
 module.exports = routes;

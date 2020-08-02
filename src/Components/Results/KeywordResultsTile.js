@@ -47,7 +47,7 @@ class KeywordResultsTile extends React.Component {
           {this.state.hasSearchedSpotify && 
           
            <button className="play-uri-btn" onClick={this.handleListClick}>
-               <img className="chevron-svg" src={this.state.showResults ? upSvg : downSvg}/>
+               <img className="chevron-svg" alt="Open / Close results accordion" src={this.state.showResults ? upSvg : downSvg}/>
             </button>} 
           </div>
           <ResultsPanel result={this.state.searchTracks} showResults={this.state.showResults}/>

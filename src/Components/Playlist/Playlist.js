@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import SpotifyResultsTile from "../Results/SpotifyResultsTile";
+import SpotifyPlaylistTile from "../Results/SpotifyPlaylistTile";
 
 class Playlist extends React.Component {
   constructor(props) {
@@ -19,10 +19,10 @@ class Playlist extends React.Component {
     this._isMounted= false
   }
 
-  generatePlaylistTile = (playlistData) => {
+  generatePlaylistTile = (playlistData, playlistId) => {
     if(playlistData.length > 0){
     let tilesList = playlistData.map((playlistItem, index) => (
-      <SpotifyResultsTile key={index} result={playlistItem.track} />
+      <SpotifyPlaylistTile key={index} result={playlistItem.track} playlistId={playlistId} />
     ));
     this.setState({
       playlistTiles: tilesList,
@@ -34,16 +34,16 @@ class Playlist extends React.Component {
     let data = await axios
       .get("/api/playlists")
       .then((response) => {
+
       if(this._isMounted){
         this.setState({
           playlistMetadata: response.data.existingPlaylist,
           playlistTracks: response.data.playlistTracks
         })
+        this.generatePlaylistTile(response.data.playlistTracks, response.data.existingPlaylist[0].id);
       }
-       this.generatePlaylistTile(this.state.playlistTracks);
       })
       .catch((e) => console.log(e));
-      console.log(data);
     return data;
   }
 
