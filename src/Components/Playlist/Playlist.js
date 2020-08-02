@@ -12,8 +12,7 @@ class Playlist extends React.Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    let playlistData = await this.retrievePlaylistData();
-    this.generatePlaylistTile(playlistData);
+    await this.retrievePlaylistData();
   }
 
   componentWillUnmount(){
@@ -21,9 +20,9 @@ class Playlist extends React.Component {
   }
 
   generatePlaylistTile = (playlistData) => {
-    if(playlistData.tracks.length > 0){
-    let tilesList = playlistData.map((result, index) => (
-      <SpotifyResultsTile key={index} result={result} />
+    if(playlistData.length > 0){
+    let tilesList = playlistData.map((playlistItem, index) => (
+      <SpotifyResultsTile key={index} result={playlistItem.track} />
     ));
     this.setState({
       playlistTiles: tilesList,
@@ -37,10 +36,11 @@ class Playlist extends React.Component {
       .then((response) => {
       if(this._isMounted){
         this.setState({
-          zapPlaylist: response.data[0]
+          playlistMetadata: response.data.existingPlaylist,
+          playlistTracks: response.data.playlistTracks
         })
       }
-        return response.data[0];
+       this.generatePlaylistTile(this.state.playlistTracks);
       })
       .catch((e) => console.log(e));
       console.log(data);
