@@ -1,67 +1,43 @@
 import React from "react";
-import './Home.css';
-import ThemedSearch from '../ThemedSearch/ThemedSearch'
-import Search from '../Search/Search';
+import "./Home.css";
+import ThemedSearch from "../ThemedSearch/ThemedSearch";
+import Search from "../Search/Search";
 import axios from "axios";
 
-class Home extends React.Component {
-
-  constructor(props){
-    super(props)
+class HomeComponent extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       hasSearched: false,
-      searchedTerm: '',
+      searchedTerm: "",
       value: ""
-    }
+    };
 
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    this._isMounted = true;
-    await this.retrievePlaylistData();
+  handleSearchInputChange(e) {
+    this.setState({ value: e.target.value });
   }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  handleSearchInputChange(e){
-    this.setState({value: e.target.value });
-  };
 
   handleSubmit(e) {
-    e.preventDefault()  
-     this.setState({
+    e.preventDefault();
+    this.setState({
       searchedTerm: this.state.value,
-      hasSearched: true
-    })
-  };
-
-  retrievePlaylistData = async () => {
-    let data = await axios
-      .get("/api/playlists")
-      .then((response) => {
-
-      if(this._isMounted){
-        this.setState({
-          playlistMetadata: response.data.existingPlaylist[0],
-          playlistTracks: response.data.playlistTracks
-        })
-      }
-      })
-      .catch((e) => console.log(e));
-    return data;
+      hasSearched: true,
+    });
   }
 
   render() {
     return (
       <div className="home-frame">
         <h1>Welcome to Zap</h1>
-        <h2>Search for your theme keyword and find related songs and phrases</h2>
+        <h2>
+          Search for your theme keyword and find related songs and phrases
+        </h2>
         <form className="search-component" onSubmit={this.handleSubmit}>
-          <input  
+          <input
             type="text"
             name="searchInput"
             className="search-bar"
@@ -73,21 +49,33 @@ class Home extends React.Component {
             type="submit"
             name="input-btn"
             className="search-bar-submit"
-            value={'Search'}
+            value={"Search"}
           />
         </form>
 
         <div className="panel-wrapper">
-        <div className="left-panel">
-        {this.state.hasSearched && <Search searchValue={this.state.searchedTerm} playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks}/> }
+          <div className="left-panel">
+            {this.state.hasSearched && (
+              <Search
+                searchValue={this.state.searchedTerm}
+                playlistMetadata={this.props.playlistMetadata}
+                playlistTracks={this.props.playlistTracks}
+              />
+            )}
+          </div>
+          <div className="right-panel">
+            {this.state.hasSearched && (
+              <ThemedSearch
+                searchValue={this.state.searchedTerm}
+                playlistMetadata={this.props.playlistMetadata}
+                playlistTracks={this.props.playlistTracks}
+              />
+            )}
+          </div>
         </div>
-        <div className="right-panel">
-        {this.state.hasSearched && <ThemedSearch searchValue={this.state.searchedTerm} playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks} />}
-        </div>
-      </div>
       </div>
     );
   }
 }
 
-export default Home;
+export const Home = HomeComponent

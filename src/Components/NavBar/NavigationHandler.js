@@ -1,9 +1,9 @@
 import React from "react";
 import { HashRouter, Route, Switch, Link, Redirect } from "react-router-dom";
 import Error from "../Error/Error";
-import Home from "../Home/Home";
+import {Home} from "../Home/Home";
 import ThemedSearch from "../ThemedSearch/ThemedSearch";
-import Playlist from "../Playlist/Playlist";
+import {Playlist} from "../Playlist/Playlist";
 import Login from "../Login/Login";
 import CurrentlyPlaying from "../CurrentlyPlaying/CurrentlyPlaying";
 
@@ -56,7 +56,7 @@ class NavBar extends React.Component {
   }
 
   render() {
-    const PrivateRoute = ({ component: Component, ...rest }) => (
+    const PrivateRoute = ({ render: Component, ...rest }) => (
       <Route
         {...rest}
         render={(props) =>
@@ -74,7 +74,7 @@ class NavBar extends React.Component {
       />
     );
 
-    const PublicRoute = ({ component: Component, ...rest }) => (
+    const PublicRoute = ({ render: Component, ...rest }) => (
       <Route
         {...rest}
         render={(props) =>
@@ -109,8 +109,9 @@ class NavBar extends React.Component {
           <Switch>
             <PublicRoute exact path="/login" component={Login} />
             <PrivateRoute exact path="/theme-search" component={ThemedSearch} />
-            <PrivateRoute exact path="/playlist" component={Playlist} />
-            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/playlist" render={(props) => (<Playlist {...props} playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks}/>)}/>
+            <PrivateRoute exact path="/" render={(props) => (<Home {...props} playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks}/>)} />
+
             <PublicRoute component={Error} />
           </Switch>
         </div>

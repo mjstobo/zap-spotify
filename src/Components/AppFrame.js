@@ -12,14 +12,30 @@ class AppFrame extends React.Component {
 
   componentDidMount = async () => {
     try {
-      return await this.checkLoggedIn().then(() => {
+      await this.checkLoggedIn().then(() => {
         this.setState({
           isLoaded: true,
         });
       });
+      if (this.state.isLoggedIn) {
+        await this.retrievePlaylistData();
+      }
     } catch (e) {
       console.log(e);
     }
+  };
+
+  retrievePlaylistData = async () => {
+    console.log("AppFrame retrieving playlist data");
+    await axios
+      .get("/api/playlists")
+      .then((response) => {
+        this.setState({
+          playlistMetadata: response.data.existingPlaylist[0],
+          playlistTracks: response.data.playlistTracks,
+        });
+      })
+      .catch((e) => console.log(e));
   };
 
   checkLoggedIn = async () => {
@@ -56,14 +72,14 @@ class AppFrame extends React.Component {
   render() {
     if (!this.state.isLoaded) {
       return (
-      <div className="App loader">
-        <div className="sk-folding-cube">
-          <div className="sk-cube1 sk-cube"></div>
-          <div className="sk-cube2 sk-cube"></div>
-          <div className="sk-cube4 sk-cube"></div>
-          <div className="sk-cube3 sk-cube"></div>
+        <div className="App loader">
+          <div className="sk-folding-cube">
+            <div className="sk-cube1 sk-cube"></div>
+            <div className="sk-cube2 sk-cube"></div>
+            <div className="sk-cube4 sk-cube"></div>
+            <div className="sk-cube3 sk-cube"></div>
+          </div>
         </div>
-      </div>
       );
     }
     return (

@@ -66,8 +66,9 @@ h1 {
 .search-results {
     margin-top: 2.5em;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-flow: column;
+    align-content: center;
+    align-items: center;
 }
 
 .search-summary {

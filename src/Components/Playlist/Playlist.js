@@ -2,17 +2,21 @@ import React from "react";
 import axios from "axios";
 import SpotifyPlaylistTile from "../Results/SpotifyPlaylistTile";
 
-class Playlist extends React.Component {
+class PlaylistComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zapPlaylist: [],
+      hasTracks: false,
+      isLoaded: true,
+      dataRequested: false
     };
   }
 
   async componentDidMount() {
     this._isMounted = true;
-    await this.retrievePlaylistData();
+    if(!this.state.dataRequested && this._isMounted){
+      await this.retrievePlaylistData();
+    }
   }
 
   componentWillUnmount(){
@@ -34,15 +38,20 @@ class Playlist extends React.Component {
     ));
     this.setState({
       playlistTiles: tilesList,
+      hasTracks: true,
+      dataRequested: true
     });
   } else {
     this.setState({
-      playlistTiles: "No song in playlist!"
+      playlistTiles: "No song in playlist!",
+      hasTracks: false,
+      dataRequested: true
     })
   }
   }
 
   retrievePlaylistData = async () => {
+    console.log("Playlist.js retrieving playlist");
     let data = await axios
       .get("/api/playlists")
       .then((response) => {
@@ -50,7 +59,9 @@ class Playlist extends React.Component {
       if(this._isMounted){
         this.setState({
           playlistMetadata: response.data.existingPlaylist[0],
-          playlistTracks: response.data.playlistTracks
+          playlistTracks: response.data.playlistTracks,
+          isLoaded: true,
+          dataRequested: true
         })
         this.generatePlaylistTile(response.data.playlistTracks, response.data.existingPlaylist[0].id);
       }
@@ -60,11 +71,24 @@ class Playlist extends React.Component {
   }
 
   render() {
+    if (!this.state.isLoaded) {
+      return (
+      <div className="App loader">
+        <div className="sk-folding-cube">
+          <div className="sk-cube1 sk-cube"></div>
+          <div className="sk-cube2 sk-cube"></div>
+          <div className="sk-cube4 sk-cube"></div>
+          <div className="sk-cube3 sk-cube"></div>
+        </div>
+      </div>
+      );
+    }
     return (
     <div className="search-results">
+      {this.state.hasTracks ? (<div> Remove all tracks </div>) : ''}
       {this.state.playlistTiles}
     </div>
     )}
 }
 
-export default Playlist;
+export const Playlist = PlaylistComponent
