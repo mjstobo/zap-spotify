@@ -40,8 +40,10 @@ class SpotifyResultsTile extends React.Component {
               <p className="results-album">{this.props.result.album.name}</p>  
             </div>
           </div>
-          <button className="play-uri-btn" onClick={this.handlePlayClick}>Play</button>
+          <div className="btn-container">
+          <button className="play-uri-btn" onClick={this.handlePlayClick}>PLAY</button>
           <button className="playlist-btn" onClick={this.handleAddToPlaylistClick}>+</button> 
+          </div>
         </div>
     );
   }

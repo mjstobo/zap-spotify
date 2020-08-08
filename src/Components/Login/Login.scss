@@ -9,25 +9,28 @@
     text-align: center;
 }
 
-.login-frame h1 {
+.login-title {
     align-self: center;
-    padding: 0;
+    padding-left: unset;
+    font-weight: 800;
+    border-bottom: 4px solid $colour-2;
 }
 
-.login-frame-cta{
+.login-frame-cta {
     margin-top: 10px;
     color: $colour-2;
     text-decoration: none;
-    border: 2px solid $colour-2;
+    border: 3px solid $colour-2;
     padding: 7.5px;
     display: block;
     text-align: center;
-    width: 25%;
+    width: 10%;
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .login-frame-cta:hover {
     cursor: pointer;
-    background-color: $colour-white;
-    color: $colour-1;
-    text-decoration: underline;
+    background-color: $colour-2;
+    color: white;
 }

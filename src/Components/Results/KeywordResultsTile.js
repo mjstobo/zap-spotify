@@ -42,7 +42,7 @@ class KeywordResultsTile extends React.Component {
           <div className="results-tile-content">
             <h4 className="results-heading">{this.props.result.word}</h4>
           </div>
-          {!this.state.hasSearchedSpotify &&<button className="play-uri-btn" onClick={this.handleClick}>Search Spotify</button>}
+          {!this.state.hasSearchedSpotify &&<button className="play-uri-btn" onClick={this.handleClick}>SEARCH</button>}
           {this.state.hasSearchedSpotify && 
           
            <button className="play-uri-btn" onClick={this.handleListClick}>

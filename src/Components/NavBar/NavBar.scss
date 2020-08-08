@@ -2,19 +2,19 @@
 
 
 .nav-bar {
-    width:  140px;
+    width:  175px;
     margin-right: 2.5px;
     position: fixed;
     display: flex;
     left: 0;
     height: 100vh;
     flex-flow: column;
-    background-color: $colour-white;
+    background-color: $colour-2;
     padding: 5px;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
-              0 2px 2px rgba(0,0,0,0.20), 
-              0 4px 4px rgba(0,0,0,0.15), 
-              0 8px 8px rgba(0,0,0,0.10),
+    box-shadow: 0 2px 2px rgba(0,0,0,0.45), 
+              0 4px 4px rgba(0,0,0,0.40), 
+              0 4px 4px rgba(0,0,0,0.25), 
+              0 8px 8px rgba(0,0,0,0.15),
               0 16px 16px rgba(0,0,0,0.05);
 }
 
@@ -35,6 +35,11 @@
                 transform 150ms ease;
 }
 
+.nav-icon {
+    fill: $colour-white;
+    width: 20px;
+}
+
 .nav-bar.content {
     display: flex;
     text-decoration: none;
@@ -46,21 +51,25 @@
 
 .nav-bar.content .nav-link {
     text-decoration: none;
-    color: $colour-2;
-    font-weight: 400;
-    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-weight: 700;
+    padding: 7.5px;
+    margin-left: 5px;
     margin-top: 20px;
-    border-bottom: 2.5px solid;
-    width: 80%;
+    border-bottom: 4px solid;
+    width: 75%;
 }
 
 .nav-bar.content .nav-link:hover {
-    border-bottom: 2.5px solid $colour-1;
+    border-bottom: 4px solid $colour-1;
 }
 
 
 .nav-bar li {
     width: auto;
+    
 }
 
 .now-playing {

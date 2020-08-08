@@ -5,12 +5,22 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
+
+    & .home-title {
+        align-self: flex-start;
+        margin-left: 160px;
+        font-weight: 900;
+    }
+    
 }
 
-h2 {
+h3 {
     margin-top: 0;
-    align-self: center;
+    margin-left: 170px;
+    align-self: flex-start;
+    font-weight: 700;
 }
+
 
 .panel-wrapper {
     width: 100%;

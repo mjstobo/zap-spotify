@@ -1,23 +1,18 @@
 @import './Core//colour.scss';
 
 .App {
-  background: $colour-1; 
+  background: $colour-white; 
   color: $colour-2;
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-flow: column;
-  font-family: "Noto Sans SC", sans-serif;
-}
-
-.App h1 {
-  align-self: center;
-  padding-left: 15px;
 }
 
 body, html {
-  background-color: $colour-1;
+  background-color: $colour-white;
   max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .app-body {

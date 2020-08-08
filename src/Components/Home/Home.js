@@ -30,10 +30,10 @@ class HomeComponent extends React.Component {
   render() {
     return (
       <div className="home-frame">
-        <h1>Welcome to Zap</h1>
-        <h2>
+        <h1 className="home-title">Welcome to Zap</h1>
+        <h3 className="home-subtitle">
           Search for your theme keyword and find related songs and phrases
-        </h2>
+        </h3>
         <form className="search-component" onSubmit={this.handleSubmit}>
           <input
             type="text"
