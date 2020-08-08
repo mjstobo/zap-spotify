@@ -2,7 +2,6 @@ import React from "react";
 import "./Home.css";
 import ThemedSearch from "../ThemedSearch/ThemedSearch";
 import Search from "../Search/Search";
-import axios from "axios";
 
 class HomeComponent extends React.Component {
   constructor(props) {
