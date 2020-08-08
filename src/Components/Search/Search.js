@@ -1,5 +1,4 @@
 import React from "react";
-import "./Search.css";
 import axios from "axios";
 import SpotifyResultsTile from "../Results/SpotifyResultsTile";
 

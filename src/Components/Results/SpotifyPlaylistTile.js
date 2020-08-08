@@ -1,5 +1,4 @@
 import React from "react";
-import './ResultsTile.css';
 import axios from "axios";
 
 class SpotifyPlaylistTile extends React.Component {

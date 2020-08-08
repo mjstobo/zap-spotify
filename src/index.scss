@@ -1,0 +1,18 @@
+@import './App.scss';
+@import './Components/Login/Login.scss';
+@import './Components/NavBar/NavBar.scss';
+@import './Components/Home/Home.scss';
+@import './Components/Results/ResultsTile.scss';
+@import './Components/ThemedSearch/ThemedSearch.scss';
+@import './Components/Search/Search.scss';
+@import './Components/Playlist/Playlist.scss';
+@import './Core//colour.scss';
+@import './Core/typography.scss';
+
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

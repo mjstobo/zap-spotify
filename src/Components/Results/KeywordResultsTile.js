@@ -1,6 +1,5 @@
 import React from "react";
 import axios from 'axios'
-import './ResultsTile.css';
 import ResultsPanel from './ResultsPanel';
 import upSvg from '../../up.svg'
 import downSvg from '../../down.svg'

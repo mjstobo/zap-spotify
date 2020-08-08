@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios').default;
 const routes = express.Router();
 
-const  searchSpotifyByKeyword = async (req, res) => {
+const searchSpotifyByKeyword = async (req, res) => {
   let headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
   };

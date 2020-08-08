@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-import CurrentlyPlaying from "./CurrentlyPlaying/CurrentlyPlaying";
 import {Home} from "./Home/Home";
 import ThemedSearch from "./ThemedSearch/ThemedSearch";
 import {Playlist} from "./Playlist/Playlist";
@@ -86,12 +85,9 @@ class AppFrame extends React.Component {
         if (!currentTrack) {
           currentTrack = "No song playing right now!";
         }
-        let songName, artistName = ""
 
         if (typeof currentTrack === "object" && currentTrack !== null) {
-          songName = currentTrack.songName;
-          artistName = currentTrack.artistName;
-  
+          
           this.setState({
             currentTrack: currentTrack,
             isLoaded: true,

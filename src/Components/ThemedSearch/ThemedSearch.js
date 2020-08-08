@@ -1,8 +1,5 @@
 import React from "react";
-import "../Search/Search.css";
-import "./ThemedSearch.css"
 import axios from 'axios'
-//import SpotifyResultsTile from '../Results/SpotifyResultsTile'
 import KeywordResultsTile from '../Results/KeywordResultsTile'
 
 
