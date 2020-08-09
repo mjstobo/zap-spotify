@@ -25,7 +25,6 @@ class AppFrame extends React.Component {
       });
       if (this.state.isLoggedIn) {
         await this.retrievePlaylistData();
-        await this.getCurrentTrack();
       }
     } catch (e) {
       console.log(e);
@@ -74,26 +73,6 @@ class AppFrame extends React.Component {
     }
 
     return;
-  };
-
-  getCurrentTrack = async () => {
-    await axios
-      .get(`/api/currently-playing`)
-      .then((response) => {
-        let currentTrack = response.data;
-
-        if (!currentTrack) {
-          currentTrack = "No song playing right now!";
-        }
-
-        if (typeof currentTrack === "object" && currentTrack !== null) {
-          
-          this.setState({
-            currentTrack: currentTrack,
-            isLoaded: true,
-          });}
-      })
-      .catch((e) => console.log("Failed to get track"));
   };
 
 
@@ -150,7 +129,7 @@ class AppFrame extends React.Component {
     return (
       <div className="App">
       <HashRouter>
-        <NavBar isLoggedIn={this.state.isLoggedIn} currentTrack={this.state.currentTrack} />
+        <NavBar isLoggedIn={this.state.isLoggedIn} />
         <div className="app-body">
           <Switch>
             <PublicRoute exact path="/login" component={Login} />
