@@ -24,7 +24,7 @@
 
 .subresult {
     min-height: 80px;
-    width: 78%;
+    width: 85%;
     font-size: 9px;
     border-left: solid 6px $colour-2;
     border-right: solid 6px $colour-2;
@@ -40,7 +40,7 @@
 .collapse {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
+    transition: visibility 0s, opacity 0.75s linear;
 }
 
 .results-art {
@@ -158,5 +158,5 @@
 }
 
 .chevron-svg {
-    width: 36px;
+    width: 30px;
 }
