@@ -36,13 +36,17 @@ class CurrentlyPlaying extends React.Component {
   }
 
   render() {
+    if(this.state.currentTrack) {
     return (
       <div className="now-playing">
         {this.state.currentTrack.songName}, <br />
         <span className="artist-name">{this.state.currentTrack.artistName}</span>
       </div>
     );
+  } else {
+    return ""
   }
+}
 }
 
 export default CurrentlyPlaying;
