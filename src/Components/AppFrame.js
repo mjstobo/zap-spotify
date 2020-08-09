@@ -128,6 +128,7 @@ class AppFrame extends React.Component {
     }
     return (
       <div className="App">
+      <h1 className="logo-wordmark">ZAP.</h1>
       <HashRouter>
         <NavBar isLoggedIn={this.state.isLoggedIn} />
         <div className="app-body">
