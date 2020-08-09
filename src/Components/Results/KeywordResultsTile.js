@@ -17,7 +17,7 @@ class KeywordResultsTile extends React.Component {
 
   handleClick = async () => {
     await axios
-      .get(`${process.env.REACT_APP_ENDPOINT}/api/search?search=${this.props.result.word}`)
+      .get(`/api/search?search=${this.props.result}`)
       .then(response => {
         this.setState({
           searchTracks: response.data.tracks.items,
@@ -40,7 +40,7 @@ class KeywordResultsTile extends React.Component {
         <>
         <div className="results-tile keyword">
           <div className="results-tile-content">
-            <h4 className="results-heading">{this.props.result.word}</h4>
+            <h4 className="results-heading">{this.props.result}</h4>
           </div>
           {!this.state.hasSearchedSpotify &&<button className="play-uri-btn" onClick={this.handleClick}>SEARCH</button>}
           {this.state.hasSearchedSpotify && 
