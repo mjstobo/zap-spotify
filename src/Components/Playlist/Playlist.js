@@ -73,7 +73,7 @@ class PlaylistComponent extends React.Component {
   render() {
     if (!this.state.isLoaded) {
       return (
-      <div className="App loader">
+      <div className="searching loader">
         <div className="sk-folding-cube">
           <div className="sk-cube1 sk-cube"></div>
           <div className="sk-cube2 sk-cube"></div>
