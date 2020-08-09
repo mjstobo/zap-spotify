@@ -4,8 +4,9 @@ const checkAuth = (req, res, next) => {
     if(isSpotifyAuthenticated && isAppAuthenticated) {
       next();
     } else {
-      res.redirect("/#/login");
+      req.session.destroy(); 
+      res.redirect(401, "/#/login");
     } 
 }
 
-module.exports = checkAuth
+module.exports = checkAuth 
