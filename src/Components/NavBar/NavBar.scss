@@ -1,13 +1,23 @@
 @use '../../Core/colour.scss';
+@use '../../Core/breakpoints.scss';
 
 
 .nav-bar {
-    width:  200px;
+    @include breakpoint(desktop) {
+        max-width: 200px;
+    }
+
+    @include breakpoint(tablet) {
+        max-width: 200px;
+        width: 15%;
+    }
+
+    width: 10%;
     margin-right: 5px;
     position: fixed;
     display: flex;
     left: 0;
-    height: 100vh;
+    height: 100%;
     flex-flow: column;
     background-color: $colour-2;
     padding: 5px;
@@ -36,8 +46,16 @@
 }
 
 .nav-icon {
+    @include breakpoint(desktop) {
+        visibility: visible;
+    }
+
+    @include breakpoint(tablet) {
+        visibility: visible;
+    }
+
     fill: $colour-white;
-    width: 20px;
+    width: 22px;
 }
 
 .nav-bar.content {
@@ -50,29 +68,48 @@
 }
 
 .nav-bar.content .nav-link {
-    text-decoration: none;
     display: flex;
+    flex-flow: row;
+    text-decoration: none;
     justify-content: space-between;
     color: white;
     font-weight: 700;
     padding: 7.5px;
-    margin-left: 5px;
     margin-top: 20px;
     border-bottom: 4px solid;
-    width: 75%;
+
+    @include breakpoint(desktop) {
+        width: 80%;
+    }
+
+}
+
+.nav-link-text {
+    display: none;
+    @include breakpoint(desktop) {
+        display: inline;
+    }
+
+    @include breakpoint(tablet) {
+        display: inline;
+    }
 }
 
 .nav-bar.content .nav-link:hover {
     border-bottom: 4px solid $colour-1;
 }
 
-
-.nav-bar li {
-    width: auto;
-    
-}
-
 .now-playing {
+    @include breakpoint(desktop) {
+        visibility: visible;
+    }
+
+    @include breakpoint(tablet) {
+        width: 80%;
+        visibility: visible;
+    }
+
+    visibility: hidden;
     z-index: 100;
     width: 100%;
     height: 60px;

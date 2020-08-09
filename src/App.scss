@@ -1,4 +1,6 @@
-@import './Core//colour.scss';
+@import './Core/colour.scss';
+@import './Core/breakpoints.scss';
+
 
 .App {
   background: $colour-white; 
@@ -16,7 +18,11 @@ body, html {
 }
 
 .app-body {
-  margin-left: 120px;
+  @include breakpoint(desktop) {
+    margin-left: 9.5%;
+
+  }
+  margin-left: 10%;
   padding-top: 20px;
 }
 
