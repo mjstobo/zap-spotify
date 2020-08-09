@@ -44,7 +44,7 @@ class CurrentlyPlaying extends React.Component {
       </div>
     );
   } else {
-    return ""
+    return (<span className="artist-name">Not playing anything.</span>)
   }
 }
 }
