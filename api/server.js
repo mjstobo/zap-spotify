@@ -26,6 +26,7 @@ const sessionData = {
   resave: true,
   name: "zap-session",
   saveUninitialized: true,
+  maxAge: 3600,
   secret: "archie-pug-tuck",
   cookie: { httpOnly: false }
 }
