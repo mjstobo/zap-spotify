@@ -1,14 +1,26 @@
 @use '../../Core/colour.scss';
+@use '../../Core/breakpoints.scss';
 
 
 .results-tile {
-    width: 87.5%;
-    margin: 0.5em;
+    @include breakpoint(desktop) {
+        width: 85%;
+        flex-flow: row;
+    }
+    @include breakpoint(tablet) {
+        width: 82.5%;
+        margin-left: 25px;
+        flex-flow: row;
+    }
+
+    max-width: 1000px;
+    width: 85%;
+    margin: 0.75em;
     padding: 0.5em;
     background-color: white;
     color: $colour-1;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     border-radius: 4.5px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.25), 
               0 3px 3px rgba(0,0,0,0.20), 
@@ -44,32 +56,66 @@
 }
 
 .results-art {
-    width: 150px;
-    min-width: 150px;
-    margin: 1.5px;
+    width: 100%;
     height: auto;
+    margin: 1%;
+    align-self: center;
+
+    @include breakpoint(tablet) {
+        width: 140px;
+        align-self: unset;
+    }
+
+    @include breakpoint(desktop) {
+        width: 175px;
+        align-self: unset;
+    }
 }
 
 .results-tile-content {
+
+    @include breakpoint(desktop) {
+        align-self: unset;
+        justify-content: space-evenly;
+        margin-left: 1em;
+        flex-grow: 1;
+    }
+
+    @include breakpoint(tablet) {
+        flex-grow: 1;
+    }
+
     display: flex;
     flex-flow: column;
     height: auto;
-    justify-content: space-evenly;
-    margin-left: 1em;
-    flex-grow: 1;
-    min-height: 100px;
+    align-self: flex-start;
+    margin: 2.5%;
+    min-height: 60px;
 }
 
 .results-heading {
+
+    @include breakpoint(desktop) {
+        align-self: unset;
+        justify-content: space-evenly;
+        margin-bottom: 5px;
+    }
+
     font-weight: 600;
     font-size: 1.2rem;
-    margin-bottom: 5px;
-    margin-top: 2.5px;
+    margin-top: 4px;
+    margin-bottom: 0;
     color: $colour-2;
 }
 
 .results-artist {
+
+    @include breakpoint(desktop) {
+        margin: unset;
+    }
+
     font-size: 15px;
+    margin-top: 5px;
     font-weight: 800;
 }
 
@@ -88,6 +134,16 @@
 }
 
 .play-uri-btn {
+
+    @include breakpoint(desktop) {
+        align-self: center;
+    }
+
+    @include breakpoint(tablet) {
+        align-self: center;
+    }
+
+
     color: white;
     font-size: 0.8rem;
     font-weight: 800;
@@ -96,10 +152,9 @@
     border: 3px solid $colour-2;
     border-radius: 5px;
     padding-left: 1.5em;
-    margin-right: 10px;
+    margin: 1.5%;
     padding-right: 1.5em;
     text-align: center;
-    align-self: center;
     min-height: 42px;
     min-width: 75px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
@@ -123,6 +178,15 @@
 
 
 .playlist-btn {
+
+    @include breakpoint(desktop) {
+        align-self: center;
+    }
+
+    @include breakpoint(tablet) {
+        align-self: center;
+    }
+
     color: $colour-2;
     font-size: 0.8rem;
     font-weight: 450;
@@ -134,7 +198,7 @@
     margin-right: 5px;
     padding-right: 1.25em;
     text-align: center;
-    align-self: center;
+    margin: 1.5%;
     min-height: 42px;
     min-width: 75px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
