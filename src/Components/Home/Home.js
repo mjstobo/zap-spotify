@@ -39,7 +39,7 @@ class HomeComponent extends React.Component {
             type="text"
             name="searchInput"
             className="search-bar"
-            placeholder="Search for terms related to your playlist theme!"
+            placeholder="Search for your theme keyword!"
             value={this.state.value}
             onChange={this.handleSearchInputChange}
           />
@@ -52,7 +52,7 @@ class HomeComponent extends React.Component {
         </form>
 
         <div className="panel-wrapper">
-          <div className="left-panel">
+          <div className="panel">
             {this.state.hasSearched && (
               <Search
                 searchValue={this.state.searchedTerm}
@@ -61,7 +61,7 @@ class HomeComponent extends React.Component {
               />
             )}
           </div>
-          <div className="right-panel">
+          <div className="panel">
             {this.state.hasSearched && (
               <ThemedSearch
                 searchValue={this.state.searchedTerm}

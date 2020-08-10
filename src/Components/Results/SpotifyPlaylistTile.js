@@ -38,7 +38,7 @@ class SpotifyPlaylistTile extends React.Component {
       <div className="results-tile">
         {this.props.result.album.images[0] && (
           <img
-            className="results-art"
+            className="results-art playlist-art"
             alt={`Album art for ${this.props.result.album.name}`}
             src={this.props.result.album.images[0].url}
           />
@@ -52,6 +52,7 @@ class SpotifyPlaylistTile extends React.Component {
             <p className="results-album">{this.props.result.album.name}</p>
           </div>
         </div>
+        <div className="btn-container">
         <button className="play-uri-btn" onClick={this.handlePlayClick}>
           PLAY
         </button>
@@ -69,6 +70,7 @@ class SpotifyPlaylistTile extends React.Component {
             <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z" />
           </svg>
         </button>
+      </div>
       </div>
     );
   }

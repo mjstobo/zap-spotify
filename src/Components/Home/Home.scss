@@ -1,5 +1,10 @@
 
 .home-frame {
+
+    @include breakpoint(tablet) {
+        min-width: 300px;
+    }
+
     width: 100%;
     min-width: 300px;
     display: flex;
@@ -8,15 +13,14 @@
 
     & .home-title {
         align-self: flex-start;
-        margin-left: 160px;
         font-weight: 900;
     }
     
 }
 
 h3 {
+
     margin-top: 0;
-    margin-left: 170px;
     align-self: flex-start;
     font-weight: 700;
 }
@@ -25,13 +29,10 @@ h3 {
 .panel-wrapper {
     width: 100%;
     display:flex;
-    justify-content: center;
 }
 
-.left-panel {
-    width: 45%;
-}
-
-.right-panel {
-    width: 45%;
+.panel {
+    @include breakpoint(tablet) {
+        width: 46.5%;    }
+    width: 50%;
 }

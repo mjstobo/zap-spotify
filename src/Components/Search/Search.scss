@@ -8,8 +8,14 @@
 .search-component {
     display: flex;
     align-self: center;
-    justify-content: center;
-    width: 90%;
+    flex-wrap: wrap;
+    align-content: center;
+
+    @include breakpoint(desktop) {
+        width: 100%;
+    }
+
+    width: 100%;
     margin-top: 1.25em;
 }
 
@@ -18,8 +24,19 @@ h1 {
 }
 
 .search-bar {
-    width: 82%;
-    height: 1.5em;
+
+    @include breakpoint(laptop) {
+        width: 100%;
+    }
+
+    @include breakpoint(tablet) {
+        width: 80%;
+        height: 1.5em;
+        font-size: 24px;
+    }
+
+    width: 100%;
+    height: 1.25em;
     padding: 12px;
 
     border-radius: 5px 0 0 5px;
@@ -31,7 +48,7 @@ h1 {
     outline: none;
     background-color: white;
     color: $colour-2;
-    font-size: 24px;
+    font-size: 16px;
 
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
               0 2px 2px rgba(0,0,0,0.20), 
@@ -40,6 +57,12 @@ h1 {
               0 16px 16px rgba(0,0,0,0.05);
 }
 .search-bar-submit {
+
+    @include breakpoint(tablet) {
+        width: unset;
+    }
+
+    display: flex;
     color: $colour-white;
     font-size: 1rem;
     font-weight: 450;
@@ -47,9 +70,9 @@ h1 {
     background-color: $colour-2;
     border: 2px solid $colour-2;
     border-radius: 2.5px;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
+    padding: 12px;
     text-align: center;
+    width: 100%;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
               0 2px 2px rgba(0,0,0,0.20), 
               0 4px 4px rgba(0,0,0,0.15), 
@@ -60,23 +83,27 @@ h1 {
 .search-bar-submit:hover,
 .search-bar-submit:focus {
     background: $colour-2;
-    color: $colour-white;
+    color: $colour-1;
     cursor: pointer;
 
 }
 
 .search-results {
+
     margin-top: 2.5em;
     display: flex;
     flex-flow: column;
-    align-content: center;
     align-items: center;
+    @include breakpoint(tablet) {
+        align-items: unset;
+    }
 }
 
 .search-summary {
     color: $colour-2;
     align-self: center;
     text-align: center;
+    min-height: 40px;
 }
 
 .search-term {
@@ -85,8 +112,13 @@ h1 {
 }
 
 .searching {
+
+    @include breakpoint(tablet) {
+        min-height: 400px;
+    }
+
     display: flex;
     flex-flow: column;
     margin-top: 50%;
-    min-height: 400px;
+    min-height: 100px;
 }

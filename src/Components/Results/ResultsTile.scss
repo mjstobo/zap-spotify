@@ -4,49 +4,55 @@
 
 .results-tile {
     @include breakpoint(desktop) {
-        width: 85%;
-        flex-flow: row;
-    }
-    @include breakpoint(tablet) {
         width: 82.5%;
-        margin-left: 25px;
         flex-flow: row;
     }
 
-    max-width: 1000px;
+    max-width: 1100px;
     width: 85%;
-    margin: 0.75em;
+    margin: 0.5em;
     padding: 0.5em;
     background-color: white;
     color: $colour-1;
     display: flex;
+    flex: 1;
     flex-flow: column;
+    height: auto;
     border-radius: 4.5px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.25), 
               0 3px 3px rgba(0,0,0,0.20), 
               0 5px 5px rgba(0,0,0,0.15), 
               0 8px 8px rgba(0,0,0,0.10),
               0 16px 16px rgba(0,0,0,0.05);
+
+
+            &.subresult {
+
+                @include breakpoint(tablet) {
+                    min-height: 80px;
+                    width: 82.5%;
+                }
+                flex: auto;
+                font-size: 9px;
+                border-left: solid 6px $colour-2;
+                border-right: solid 6px $colour-2;
+            }
+
 }
 
 .keyword {
     min-height: 100px;
     max-height: 125px;
+    @include breakpoint(tablet) {
+        flex-flow: column;
+    }
 }
-
-.subresult {
-    min-height: 80px;
-    width: 85%;
-    font-size: 9px;
-    border-left: solid 6px $colour-2;
-    border-right: solid 6px $colour-2;
-}
-
+    
 .keyword-subresults {
     width: 100%;
     display: flex;
     flex-flow: column;
-    align-items: center;
+    justify-content: flex-start;
 }
 
 .collapse {
@@ -60,16 +66,22 @@
     height: auto;
     margin: 1%;
     align-self: center;
+    flex: 1;
 
-    @include breakpoint(tablet) {
-        width: 140px;
-        align-self: unset;
-    }
 
     @include breakpoint(desktop) {
         width: 175px;
-        align-self: unset;
+        align-self: center;
+        flex: 1 0 0;
     }
+
+    @include breakpoint(desktop) {
+        &.playlist-art {
+            width: 225px;
+            flex: unset;
+        }
+    }
+
 }
 
 .results-tile-content {
@@ -78,11 +90,13 @@
         align-self: unset;
         justify-content: space-evenly;
         margin-left: 1em;
-        flex-grow: 1;
+        margin-bottom: 1%;
+        flex: 1;
     }
 
     @include breakpoint(tablet) {
-        flex-grow: 1;
+        flex: 1;
+        height: 100%;
     }
 
     display: flex;
@@ -126,20 +140,27 @@
 }
 
 .btn-container {
+    @include breakpoint(desktop) {
+        align-self: center;
+        min-height: 100px;
+    }
+
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
-    height: 100%;
-    min-height: 150px;
+    margin: 2%;
 }
 
 .play-uri-btn {
 
     @include breakpoint(desktop) {
-        align-self: center;
+        margin: unset;
+        max-width: 275px;
     }
 
     @include breakpoint(tablet) {
+        width: 100%;
+        max-height: 60px;
         align-self: center;
     }
 
@@ -184,6 +205,8 @@
     }
 
     @include breakpoint(tablet) {
+        width: 100%;
+        max-height: 60px;
         align-self: center;
     }
 
