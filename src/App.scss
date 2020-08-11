@@ -25,6 +25,17 @@ body, html {
   padding-top: 20px;
 }
 
+.Toastify__toast {
+  background-color: $colour-white;
+  color: $colour-1;
+  border: 2px solid $colour-2;
+}
+
+.Toastify__toast-body {
+  color: $colour-1;
+  font-weight: 700;
+}
+
 .logo-wordmark {
   align-self: flex-end;
   margin-top: 7.5px;

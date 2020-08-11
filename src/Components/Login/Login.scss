@@ -8,6 +8,14 @@
     align-items: center;
     margin-top: 15%;
     text-align: center;
+
+    & p {
+        @include breakpoint(desktop) {
+            margin-right: 20%;
+        }
+    }
+
+
 }
 
 .login-title {
@@ -15,10 +23,15 @@
     padding-left: unset;
     font-weight: 800;
     border-bottom: 4px solid $colour-2;
+    @include breakpoint(desktop) {
+        margin-right: 20%;
+    }
 }
 
 .login-frame-cta {
-    margin-top: 10px;
+    @include breakpoint(desktop) {
+        margin-right: 20%;
+    }    margin-top: 10px;
     color: $colour-2;
     text-decoration: none;
     border: 3px solid $colour-2;

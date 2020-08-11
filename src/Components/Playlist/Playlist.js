@@ -8,9 +8,14 @@ class PlaylistComponent extends React.Component {
     this.state = {
       hasTracks: false,
       isLoaded: true,
-      dataRequested: false
+      dataRequested: false,
     };
+
+    this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
+
   }
+
+
 
   async componentDidMount() {
     this._isMounted = true;
@@ -23,12 +28,9 @@ class PlaylistComponent extends React.Component {
     this._isMounted= false
   }
 
-  removeFromPlaylist = (track_id) => {
+  removeFromPlaylist = async (track_id) => {
     let updatedPlaylist = this.state.playlistTracks.filter(track => track.track.id !== track_id);
-    console.log(updatedPlaylist)
-    this.setState({
-      playlistTracks: this.generatePlaylistTile(updatedPlaylist)
-    })
+    this.generatePlaylistTile(updatedPlaylist)
   }
 
   generatePlaylistTile = (playlistData, playlistId = this.state.playlistMetadata.id) => {
@@ -37,12 +39,14 @@ class PlaylistComponent extends React.Component {
       <SpotifyPlaylistTile key={index} result={playlistItem.track} playlistId={playlistId} removeFromPlaylist={this.removeFromPlaylist}/>
     ));
     this.setState({
+      playlistTracks: playlistData,
       playlistTiles: tilesList,
       hasTracks: true,
       dataRequested: true
     });
   } else {
     this.setState({
+      playlistTracks: playlistData,
       playlistTiles: "No song in playlist!",
       hasTracks: false,
       dataRequested: true

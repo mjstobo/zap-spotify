@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 class SpotifyResultsTile extends React.Component {
   constructor(props){
@@ -15,7 +16,7 @@ class SpotifyResultsTile extends React.Component {
     axios.get(`${process.env.REACT_APP_ENDPOINT}/api/play`, {
     params: {
       uri: this.props.result.uri
-    }});
+    }}).then(() => toast(`Playing ${this.props.result.name}`));
   }
 
   handleAddToPlaylistClick = async () => {
@@ -26,7 +27,7 @@ class SpotifyResultsTile extends React.Component {
         playlist_id: this.props.playlistId
       }
     })
-    .then(response => console.log(response.data));
+    .then(() => toast(`Added ${this.props.result.name} to playlist`));
   }
 
   render() {

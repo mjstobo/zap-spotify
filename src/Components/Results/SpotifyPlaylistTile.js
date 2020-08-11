@@ -1,27 +1,28 @@
 import React from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 class SpotifyPlaylistTile extends React.Component {
   constructor(props) {
     super(props);
     this.handlePlayClick = this.handlePlayClick.bind(this);
-    this.handleRemoveFromPlaylistClick = this.handleRemoveFromPlaylistClick.bind(
-      this
-    );
-
+    this.handleRemoveFromPlaylistClick = this.handleRemoveFromPlaylistClick.bind(this);
+    this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
     this.state = {};
   }
 
   handlePlayClick = async () => {
-    await axios.get(`/api/play`, {
-      params: {
-        uri: this.props.result.uri,
-      },
-    });
+    await axios
+      .get(`/api/play`, {
+        params: {
+          uri: this.props.result.uri,
+        },
+      })
+      .then(() => toast(`Playing ${this.props.result.name}`));
   };
 
   handleRemoveFromPlaylistClick = async () => {
-    axios
+    await axios
       .get(`/api/remove-track`, {
         params: {
           playlist_id: this.props.playlistId,
@@ -29,9 +30,15 @@ class SpotifyPlaylistTile extends React.Component {
         },
       })
       .then((response) => {
-        this.props.removeFromPlaylist(this.props.result.id);
+        toast(`Removed ${this.props.result.name} from playlist`);
+        console.log(this.props.result.id)
+        this.removeFromPlaylist(this.props.result.id);
       });
   };
+
+  removeFromPlaylist(track_id) {
+    this.props.removeFromPlaylist(track_id);
+  }
 
   render() {
     return (
@@ -53,24 +60,24 @@ class SpotifyPlaylistTile extends React.Component {
           </div>
         </div>
         <div className="btn-container">
-        <button className="play-uri-btn" onClick={this.handlePlayClick}>
-          PLAY
-        </button>
-        <button
-          className="playlist-btn"
-          onClick={this.handleRemoveFromPlaylistClick}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            className="playlist-icon"
+          <button className="play-uri-btn" onClick={this.handlePlayClick}>
+            PLAY
+          </button>
+          <button
+            className="playlist-btn"
+            onClick={this.handleRemoveFromPlaylistClick}
           >
-            <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z" />
-          </svg>
-        </button>
-      </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              className="playlist-icon"
+            >
+              <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z" />
+            </svg>
+          </button>
+        </div>
       </div>
     );
   }
