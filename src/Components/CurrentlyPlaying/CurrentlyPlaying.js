@@ -31,7 +31,7 @@ class CurrentlyPlaying extends React.Component {
 
   componentDidMount() {
     this.getCurrentTrack();
-    this.timer = setInterval(() => this.getCurrentTrack(), 10000);
+    this.timer = setInterval(() => this.getCurrentTrack(), 60000);
   }
 
   render() {
