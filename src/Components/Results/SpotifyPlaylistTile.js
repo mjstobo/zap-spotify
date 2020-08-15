@@ -18,7 +18,12 @@ class SpotifyPlaylistTile extends React.Component {
           uri: this.props.result.uri,
         },
       })
-      .then(() => toast(`Playing ${this.props.result.name}`));
+      .then(() => toast(`Playing ${this.props.result.name}`))
+      .catch(e => {
+        if(e.response.status === 404){
+          toast("Unable to find Spotify device.");
+        }
+      })
   };
 
   handleRemoveFromPlaylistClick = async () => {

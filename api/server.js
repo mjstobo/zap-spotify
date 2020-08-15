@@ -1,7 +1,7 @@
 //imports
 
 import dotenv from "dotenv/config";
-import express, { response } from "express";
+import express from "express";
 import cookieParser from "cookie-parser";
 const cors = require("cors");
 const session = require("express-session");
@@ -22,13 +22,15 @@ const getPlaylists = require("./routes/playlist");
 //validate spotify access
 const checkAuth = require('./utils/checkAuth');
 
+const hour = 3600 * 1000;
+
 const sessionData = {
   resave: true,
   name: "zap-session",
   saveUninitialized: true,
-  maxAge: 3600,
+  rolling: true,
   secret: "archie-pug-tuck",
-  cookie: { httpOnly: false }
+  cookie: { httpOnly: false, maxAge: hour }
 }
 
 //middlewares

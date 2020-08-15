@@ -14,7 +14,7 @@
       headers: headerOptions
     })
     .then(response => res.status(204).send())
-    .catch(e => console.log(e.response.data));
+    .catch(e => res.status(e.response.data.error.status).send());
   } else {
     res.status(400).send('URI not provided');
   }

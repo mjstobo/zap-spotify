@@ -78,18 +78,23 @@ const spotifyCallback = async (req, res) => {
         );
       })
       .then((response) => {
+        console.log(response.data)
         let access_token = response.data.access_token,
           refresh_token = response.data.refresh_token,
           headerOptions = { Authorization: "Bearer " + access_token };
-          return {access_token: access_token, refresh_token: refresh_token, headerOptions: headerOptions};
+          return {access_token: access_token, refresh_token: refresh_token, headerOptions: headerOptions, authCode: req.query.code};
       });
 
       if(sessionData.access_token){
         await getUser(sessionData.headerOptions).then((currentUser) => {
           req.session.isSpotifyLoggedIn = true;
           req.session.access_token = sessionData.access_token;
+          req.session.refresh_token = sessionData.refresh_token;
+          req.session.spotifyTokenExpiryTime = Date.now() + (3600 * 1000);
+          console.log(req.session.spotifyTokenExpiryTime);
           req.session.session_id = uuidv4();
           req.session.currentUser = currentUser;
+          req.session.auth_code = sessionData.authCode;
           req.session.save(() => {
           res.redirect("/#");
         });

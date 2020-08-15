@@ -83,7 +83,6 @@ const getPlaylists = async (req, res) => {
     })
     .catch((e) => console.log(e));
 
-    console.log(existingPlaylist);
   if (existingPlaylist.length === 0) {
     await createZapPlaylist(headerOptions, currUserId).then((newPlaylist) => {
       res.json(newPlaylist);

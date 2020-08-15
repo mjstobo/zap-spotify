@@ -48,15 +48,15 @@
 
 .nav-icon {
     @include breakpoint(desktop) {
-        visibility: visible;
+        width: 24px;
     }
 
     @include breakpoint(tablet) {
-        visibility: visible;
+        width: 20px;
     }
 
     fill: $colour-white;
-    width: 24px;
+    width: 20px;
 }
 
 .nav-bar.content {
