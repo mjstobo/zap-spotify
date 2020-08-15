@@ -1,10 +1,12 @@
 //imports
 
-import dotenv from "dotenv/config";
-import express from "express";
-import cookieParser from "cookie-parser";
-const cors = require("cors");
-const session = require("express-session");
+
+import express from "./node_modules/express";
+import cookieParser from "./node_modules/cookie-parser";
+const dotenv = require("./node_modules/dotenv/config");
+const cors = require("./node_modules/cors/lib");
+const session = require("./node_modules/express-session");
+const path = require('path');
 
 //express init
 const api = express();
@@ -37,6 +39,7 @@ const sessionData = {
 api.use(session(sessionData))
   .use(cookieParser())
   .use(cors({ origin: "localhost:3000", credentials: false}))
+  .use(express.static(path.join(__dirname, 'build')))
   .use(express.json());
 
 api.use("/", loginToSpotify);

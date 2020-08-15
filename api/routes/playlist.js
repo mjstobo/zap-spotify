@@ -1,6 +1,6 @@
-const express = require("express");
-const { response } = require("express");
-const axios = require("axios").default;
+const express = require("../node_modules/express");
+const { response } = require("../node_modules/express");
+const axios = require("../node_modules/axios").default;
 const routes = express.Router();
 
 const getZapPlaylistFromList = async (playlistArray) => {

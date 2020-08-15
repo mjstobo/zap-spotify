@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "../node_modules/uuid/dist";
 import querystring from "querystring";
-const express = require("express");
-const axios = require("axios").default;
+const express = require("../node_modules/express");
+const axios = require("../node_modules/axios").default;
 const routes = express.Router();
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
