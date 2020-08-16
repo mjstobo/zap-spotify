@@ -32,6 +32,7 @@ const getTracks = async (playlistUrl, headerOptions) => {
 };
 
 const removeTrackFromPlaylist = async (req, res) => {
+
   const headerOptions = {
     Authorization: "Bearer " + req.session.access_token,
     "Content-Type": "application/json",
@@ -51,6 +52,8 @@ const removeTrackFromPlaylist = async (req, res) => {
       uri: req.query.track_id,
     });
 
+    console.log("removing single playlist track");
+
     await axios
       .delete(
         `https://api.spotify.com/v1/playlists/${req.query.playlist_id}/tracks`,
@@ -67,6 +70,43 @@ const removeTrackFromPlaylist = async (req, res) => {
       .catch((e) => console.log(e.data));
   }
 };
+
+const removeAllFromPlaylist = async (req, res) => {
+  console.log(req)
+
+  const headerOptions = {
+    Authorization: "Bearer " + req.session.access_token,
+    "Content-Type": "application/json",
+  };
+
+  if (req.body.track_ids && req.body.playlist_id) {
+    
+    let tracksArr = [];
+    console.log(req.body.track_ids)
+    req.body.track_ids.forEach(uri => {
+      tracksArr.push({uri: uri})
+    });
+
+    console.log("removing single playlist track");
+
+    await axios
+      .delete(
+        `https://api.spotify.com/v1/playlists/${req.body.playlist_id}/tracks`,
+        {
+          headers: headerOptions,
+          data: {
+            tracks: tracksArr,
+          },
+        }
+      )
+      .then((response) => {
+        res.status(200).json("Removed successfully");
+      })
+      .catch((e) => console.log(e));
+  }
+};
+
+
 
 const getPlaylists = async (req, res) => {
   const headerOptions = {
@@ -118,6 +158,7 @@ const addTrackToPlaylist = async (req, res) => {
         }
       )
       .then((response) => {
+        console.log(response.data)
         res.status(200).json("Added successfully");
       })
       .catch((e) => console.log(e));
@@ -125,6 +166,7 @@ const addTrackToPlaylist = async (req, res) => {
 };
 
 routes.get("/api/remove-track", removeTrackFromPlaylist);
+routes.post("/api/remove-track", removeAllFromPlaylist);
 routes.get("/api/add-track", addTrackToPlaylist);
 routes.get("/api/playlists", getPlaylists);
 

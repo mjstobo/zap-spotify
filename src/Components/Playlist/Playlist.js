@@ -86,11 +86,15 @@ class PlaylistComponent extends React.Component {
   };
 
   removeAllTracks = async () => {
+
+    console.log(this.state.playlistTracks)
+    let tracksArr = this.state.playlistTracks.map(item => item.track.uri)
+    console.log(tracksArr)
+
     await axios
-    .get(`/api/remove-track`, {
-      params: {
-        all_tracks: true
-      },
+    .post(`/api/remove-track`, {
+        playlist_id: this.state.playlistMetadata.id,
+        track_ids: tracksArr
     })
     .then((response) => {
       toast(`Emptied the playlist!`);
