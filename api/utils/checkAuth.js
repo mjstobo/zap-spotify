@@ -5,9 +5,7 @@ const checkAuth = (req, res, next) => {
   const isAppAuthenticated = req.session.access_token;
 
   if (isAppAuthenticated) {
-    console.log("Session looks OK. Checking Spotify expiry.")
     if (Date.now() - req.session.spotifyTokenExpiryTime > 0) {
-      console.log("Refreshing token");
       let sessionData = refreshAccessToken(req).then(() => {
         req.session.access_token = sessionData.access_token;
         req.session.refresh_token = sessionData.refresh_token;
@@ -16,11 +14,9 @@ const checkAuth = (req, res, next) => {
         next();
       });
     } else {
-      console.log("Session looks OK. Proceeding.")
       next();
     }
   } else {
-      console.log("Session expired or not found. Redirect");
       res.redirect(401, "/#/login");
   }
 };
@@ -28,13 +24,12 @@ const checkAuth = (req, res, next) => {
 const refreshAccessToken = async (req) => {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-  const redirect_uri = "http://localhost:3000/api/callback";
+  const redirect_uri = process.env.SPOTIFY_CALLBACK_URI;
 
   const header = new Buffer.from(`${client_id}:${client_secret}`).toString(
     "base64"
   );
 
-  console.log("Refreshing token");
   const authOptions = {
     url: "https://accounts.spotify.com/api/token",
     method: "post",
