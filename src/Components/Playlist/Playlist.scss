@@ -1,4 +1,49 @@
 .playlist-title {
     font-size: 36px;
+    font-weight: 900;
     margin-top: unset;
+}
+
+.remove-tracks-cta {
+    width: 3.5%;
+    background-color: unset;
+    border: none;
+    height: 40px;
+    align-self: flex-end;
+
+    &:hover {
+        border: 2px solid $colour-2;
+        border-radius: 6px;
+        cursor: pointer;
+        & .remove-icon {
+            fill: $colour-1;
+            cursor: pointer;
+        }
+    }
+
+    &:active {
+        border: 2px solid $colour-2;
+        background-color: $colour-2;
+        border-radius: 6px;
+        cursor: pointer;
+        & .remove-icon {
+            fill: $colour-white;
+            cursor: pointer;
+        }
+    }
+
+}
+
+.remove-icon {
+    fill: $colour-2;
+    width: 18px;
+
+}
+
+.playlist-controls {
+    display: flex;
+    width: 82.5%;
+    flex-flow: row;
+    justify-content: space-between;
+    align-content: center;
 }

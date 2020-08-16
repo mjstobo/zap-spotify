@@ -6,7 +6,9 @@ class SpotifyPlaylistTile extends React.Component {
   constructor(props) {
     super(props);
     this.handlePlayClick = this.handlePlayClick.bind(this);
-    this.handleRemoveFromPlaylistClick = this.handleRemoveFromPlaylistClick.bind(this);
+    this.handleRemoveFromPlaylistClick = this.handleRemoveFromPlaylistClick.bind(
+      this
+    );
     this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
     this.state = {};
   }
@@ -19,11 +21,11 @@ class SpotifyPlaylistTile extends React.Component {
         },
       })
       .then(() => toast(`Playing ${this.props.result.name}`))
-      .catch(e => {
-        if(e.response.status === 404){
+      .catch((e) => {
+        if (e.response.status === 404) {
           toast("Unable to find Spotify device.");
         }
-      })
+      });
   };
 
   handleRemoveFromPlaylistClick = async () => {
@@ -36,7 +38,7 @@ class SpotifyPlaylistTile extends React.Component {
       })
       .then((response) => {
         toast(`Removed ${this.props.result.name} from playlist`);
-        console.log(this.props.result.id)
+        console.log(this.props.result.id);
         this.removeFromPlaylist(this.props.result.id);
       });
   };
@@ -66,21 +68,21 @@ class SpotifyPlaylistTile extends React.Component {
         </div>
         <div className="btn-container">
           <button className="play-uri-btn" onClick={this.handlePlayClick}>
-            PLAY
+            <svg
+              className="play-btn-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M3 22v-20l18 10-18 10z" />
+            </svg>
           </button>
           <button
             className="playlist-btn"
             onClick={this.handleRemoveFromPlaylistClick}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="playlist-icon"
-            >
-              <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z" />
-            </svg>
+            <svg className="playlist-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
           </button>
         </div>
       </div>
