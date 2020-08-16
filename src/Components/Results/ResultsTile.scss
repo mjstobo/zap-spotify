@@ -73,13 +73,13 @@
         width: 175px;
         align-self: center;
         flex: 1 0 0;
-    }
+    } 
 
+    &.playlist-art {
     @include breakpoint(desktop) {
-        &.playlist-art {
             width: 225px;
             flex: unset;
-        }
+    }
     }
 
 }

@@ -12,13 +12,13 @@ BREAKPOINTS
       @media (min-width: $desktop-width) { @content ; }
    }
     @else if $point == laptop {
-      @media (min-width: $laptop-width) { @content ; }
+      @media (min-width: $laptop-width) and (max-width: $desktop-width - 1px){ @content ; }
    }
      @else if $point == tablet {
-      @media (min-width: $tablet-width) { @content ; }
+      @media (min-width: $tablet-width) and (max-width: $laptop-width - 1px){ @content ; }
    }
     @else if $point == mobile-ls {
-      @media (min-width: $mobile-ls-width) { @content ; }
+      @media (min-width: $mobile-ls-width) and (max-width: $tablet-width - 1px) { @content ; }
    }
    @else if $point == mobileonly {
       @media (max-width: $mobile-ls-width - 1px)  { @content ; }

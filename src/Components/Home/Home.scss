@@ -1,11 +1,11 @@
 
 .home-frame {
-
-    @include breakpoint(tablet) {
+    @include breakpoint(mobile-ls) {
         min-width: 300px;
+        width: 72.5vw;
     }
 
-    width: 100%;
+    width: 70vw;
     min-width: 300px;
     display: flex;
     flex-flow: column;
@@ -13,7 +13,25 @@
 
     & .home-title {
         align-self: flex-start;
+        font-size: 36px;
         font-weight: 900;
+    }
+
+    & .home-subtitle {
+        min-height: 50px;
+
+        @include breakpoint(tablet) {
+           margin-bottom: 0;
+        }
+
+        @include breakpoint(laptop) {
+            margin-bottom: 0;
+         }
+
+         @include breakpoint(desktop) {
+            margin-bottom: 0;
+         }
+    
     }
     
 }
@@ -32,7 +50,5 @@ h3 {
 }
 
 .panel {
-    @include breakpoint(tablet) {
-        width: 46.5%;    }
     width: 50%;
 }

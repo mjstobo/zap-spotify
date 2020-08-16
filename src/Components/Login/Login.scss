@@ -5,40 +5,25 @@
     width: 100%;
     display: flex;
     flex-flow: column;
-    align-items: center;
+    align-content: center;
     margin-top: 15%;
     text-align: center;
-
-    & p {
-        @include breakpoint(desktop) {
-            margin-right: 20%;
-        }
-    }
-
-
 }
 
 .login-title {
-    align-self: center;
-    padding-left: unset;
     font-weight: 800;
-    border-bottom: 4px solid $colour-2;
-    @include breakpoint(desktop) {
-        margin-right: 20%;
-    }
+    font-size: 36px;
+    color: $colour-2
 }
 
 .login-frame-cta {
-    @include breakpoint(desktop) {
-        margin-right: 20%;
-    }    margin-top: 10px;
+    margin-top: 10px;
     color: $colour-2;
     text-decoration: none;
     border: 3px solid $colour-2;
-    padding: 7.5px;
-    display: block;
+    padding: 10px;
     text-align: center;
-    width: 10%;
+    width: 100%;
     font-size: 14px;
     font-weight: 800;
 }

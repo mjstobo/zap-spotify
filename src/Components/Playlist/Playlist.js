@@ -88,7 +88,8 @@ class PlaylistComponent extends React.Component {
       );
     }
     return (
-    <div className="search-results">
+    <div className="search-results playlist">
+      <h1 className="playlist-title">My Playlist</h1>
       {this.state.hasTracks ? (<div> Remove all tracks </div>) : ''}
       {this.state.playlistTiles}
     </div>
