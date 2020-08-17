@@ -70,14 +70,14 @@ class PlaylistComponent extends React.Component {
       .then((response) => {
         if (this._isMounted) {
           this.setState({
-            playlistMetadata: response.data.existingPlaylist[0],
+            playlistMetadata: response.data.returnPlaylist[0],
             playlistTracks: response.data.playlistTracks,
             isLoaded: true,
             dataRequested: true,
           });
           this.generatePlaylistTile(
             response.data.playlistTracks,
-            response.data.existingPlaylist[0].id
+            response.data.returnPlaylist[0].id
           );
         }
       })

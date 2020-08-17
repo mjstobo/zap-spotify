@@ -36,6 +36,7 @@ class AppFrame extends React.Component {
     await axios
       .get("/api/playlists")
       .then((response) => {
+        console.log(response.data.returnPlaylist[0])
         this.setState({
           playlistMetadata: response.data.returnPlaylist[0],
           playlistTracks: response.data.playlistTracks ? response.data.playlistTracks : "",
