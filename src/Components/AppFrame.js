@@ -47,7 +47,7 @@ class AppFrame extends React.Component {
   checkLoggedIn = async () => {
     try {
       await axios
-        .get(`${process.env.REACT_APP_ENDPOINT}/api/session`)
+        .get(`/api/session`)
         .then((response) => {
           let isLoggedIn = response.data.loggedIn;
           let session_id = response.data.session_id;

@@ -15,6 +15,8 @@ const getSession = async (req, res) => {
         session_id: session_id,
       };
       res.status(200).json(resObj);
+    } else {
+      res.status(401).json();
     }
   }
 

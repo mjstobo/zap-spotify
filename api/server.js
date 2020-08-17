@@ -1,12 +1,11 @@
 //imports
 
-
 import express from "./node_modules/express";
 import cookieParser from "./node_modules/cookie-parser";
 const dotenv = require("./node_modules/dotenv/config");
 const cors = require("./node_modules/cors/lib");
 const session = require("./node_modules/express-session");
-const path = require('path');
+const path = require("path");
 
 //express init
 const api = express();
@@ -22,7 +21,7 @@ const getThemeKeyword = require("./routes/themeKeyword");
 const getPlaylists = require("./routes/playlist");
 
 //validate spotify access
-const checkAuth = require('./utils/checkAuth');
+const checkAuth = require("./utils/checkAuth");
 
 const hour = 3600 * 1000;
 
@@ -32,24 +31,29 @@ const sessionData = {
   saveUninitialized: true,
   rolling: true,
   secret: "archie-pug-tuck",
-  cookie: { httpOnly: false, maxAge: hour }
-}
+  cookie: { httpOnly: false, maxAge: hour },
+};
 
 //middlewares
-api.use(session(sessionData))
+api
+  .use(session(sessionData))
   .use(cookieParser())
-  .use(cors({ origin: "localhost:3000", credentials: false}))
-  .use(express.static(path.join(__dirname, 'build')))
+  .use(cors({ origin: "localhost:5000", credentials: false }))
+  .use(express.static(path.join(__dirname, "../build")))
   .use(express.json());
 
 api.use("/", loginToSpotify);
 api.use("/", spotifyCallback);
 api.use("/", checkAuth, getCurrentlyPlayingTrack);
-api.use("/", checkAuth, express.json(), getSession);
+api.use("/", express.json(), getSession);
 api.use("/", checkAuth, searchSpotifyByKeyword);
 api.use("/", checkAuth, playSpotifyTrack);
 api.use("/", checkAuth, express.json(), getThemeKeyword);
-api.use("/", checkAuth, getPlaylists)
+api.use("/", checkAuth, getPlaylists);
+
+api.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + "../build/index.html"));
+});
 
 // run app
 api.listen(process.env.DEFAULT_PORT);

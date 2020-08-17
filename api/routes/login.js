@@ -6,7 +6,7 @@ const routes = express.Router();
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirect_uri = "http://localhost:3000/api/callback";
+const redirect_uri = process.env.SPOTIFY_CALLBACK_URI;
 
 //constants
 const stateKey = "spotify_auth_state";
