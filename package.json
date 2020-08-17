@@ -29,7 +29,7 @@
     "start": "react-scripts start",
     "server": "nodemon --exec babel-node ./api/server.js",
     "build": "react-scripts build",
-    "heroku-prebuild": "react-scripts build && npm install --prefix api",
+    "postinstall": "npm install --prefix api",
     "test": "npx cypress run --reporter junit",
     "eject": "react-scripts eject"
   },
