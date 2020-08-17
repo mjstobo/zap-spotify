@@ -1,4 +1,4 @@
-const uuidv4 = require("../node_modules/uuid/dist")
+const { uuid } = require('uuidv4');
 const querystring = require("querystring");
 const express = require("../node_modules/express");
 const axios = require("../node_modules/axios").default;
@@ -25,7 +25,7 @@ const getUser = async (headerOptions) => {
 };
 
 const loginToSpotify = (req, res) => {
-  const state = uuidv4();
+  const state = uuid();
   res.cookie(stateKey, state);
 
   const scope =
