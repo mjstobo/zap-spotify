@@ -78,7 +78,6 @@ const spotifyCallback = async (req, res) => {
         );
       })
       .then((response) => {
-        console.log(response.data)
         let access_token = response.data.access_token,
           refresh_token = response.data.refresh_token,
           headerOptions = { Authorization: "Bearer " + access_token };
@@ -91,7 +90,6 @@ const spotifyCallback = async (req, res) => {
           req.session.access_token = sessionData.access_token;
           req.session.refresh_token = sessionData.refresh_token;
           req.session.spotifyTokenExpiryTime = Date.now() + (3600 * 1000);
-          console.log(req.session.spotifyTokenExpiryTime);
           req.session.session_id = uuid();
           req.session.currentUser = currentUser;
           req.session.auth_code = sessionData.authCode;

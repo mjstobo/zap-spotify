@@ -8,7 +8,6 @@ const searchSpotifyByKeyword = async (req, res) => {
   };
 
   if (req.query.search) {
-    console.log(req.query.search);
     await axios.get("https://api.spotify.com/v1/search", {
         headers: headerOptions,
         params: {

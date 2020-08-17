@@ -52,8 +52,6 @@ const removeTrackFromPlaylist = async (req, res) => {
       uri: req.query.track_id,
     });
 
-    console.log("removing single playlist track");
-
     await axios
       .delete(
         `https://api.spotify.com/v1/playlists/${req.query.playlist_id}/tracks`,
@@ -82,12 +80,9 @@ const removeAllFromPlaylist = async (req, res) => {
   if (req.body.track_ids && req.body.playlist_id) {
     
     let tracksArr = [];
-    console.log(req.body.track_ids)
     req.body.track_ids.forEach(uri => {
       tracksArr.push({uri: uri})
     });
-
-    console.log("removing single playlist track");
 
     await axios
       .delete(
