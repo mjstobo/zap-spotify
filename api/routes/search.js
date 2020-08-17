@@ -12,7 +12,8 @@ const searchSpotifyByKeyword = async (req, res) => {
         headers: headerOptions,
         params: {
           q: req.query.search,
-          type: "album,track,artist"
+          type: "album,track,artist",
+          market: "from_token"
         }
       })
       .then(response => {
