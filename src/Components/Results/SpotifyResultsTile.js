@@ -17,7 +17,7 @@ class SpotifyResultsTile extends React.Component {
 
   handlePlayClick = async () => {
     axios
-      .get(`${process.env.REACT_APP_ENDPOINT}/api/play`, {
+      .get(`/api/play`, {
         params: {
           uri: this.props.result.uri,
         },
