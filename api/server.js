@@ -7,7 +7,6 @@ const cors = require("cors/lib");
 const redis = require('redis');
 const session = require("express-session");
 let RedisStore = require('connect-redis')(session)
-let redisClient = redis.createClient(process.env.REDIS_URL)
 const path = require("path");
 
 //express init
@@ -32,7 +31,7 @@ const sessionData = {
   store: 
   process.env.NODE_ENV === "production" ? 
   new RedisStore({
-    client: redisClient
+    client: redis.createClient(process.env.REDIS_URL)
   })
   : null,
   resave: true,

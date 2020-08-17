@@ -110,7 +110,7 @@ const getPlaylists = async (req, res) => {
 
   let zapPlaylist;
   let currUserId = req.session.currentUser.id;
-  let existingPlaylist = await axios
+  let returnPlaylist = await axios
     .get("https://api.spotify.com/v1/me/playlists", { headers: headerOptions })
     .then((response) => {
       zapPlaylist = getZapPlaylistFromList(response.data.items);
@@ -118,13 +118,13 @@ const getPlaylists = async (req, res) => {
     })
     .catch((e) => console.log(e));
 
-  if (existingPlaylist.length === 0) {
-    await createZapPlaylist(headerOptions, currUserId).then((newPlaylist) => {
-      res.json(newPlaylist);
+  if (returnPlaylist.length === 0) {
+    await createZapPlaylist(headerOptions, currUserId).then((returnPlaylist) => {
+      res.json({ returnPlaylist })
     });
   } else {
-    await getTracks(existingPlaylist[0].tracks.href, headerOptions)
-      .then((playlistTracks) => res.json({ existingPlaylist, playlistTracks }))
+    await getTracks(returnPlaylist[0].tracks.href, headerOptions)
+      .then((playlistTracks) => res.json({ returnPlaylist , playlistTracks }))
       .catch((e) => console.log(e));
   }
 };

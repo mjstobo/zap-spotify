@@ -37,8 +37,8 @@ class AppFrame extends React.Component {
       .get("/api/playlists")
       .then((response) => {
         this.setState({
-          playlistMetadata: response.data.existingPlaylist[0],
-          playlistTracks: response.data.playlistTracks,
+          playlistMetadata: response.data.returnPlaylist[0],
+          playlistTracks: response.data.playlistTracks ? response.data.playlistTracks : "",
         });
       })
       .catch((e) => console.log(e));
