@@ -120,7 +120,8 @@ const getPlaylists = async (req, res) => {
 
   if (returnPlaylist.length === 0) {
     await createZapPlaylist(headerOptions, currUserId).then((returnPlaylist) => {
-      res.json({ returnPlaylist })
+      let playlistTracks = {}
+      res.json({ returnPlaylist, playlistTracks})
     });
   } else {
     await getTracks(returnPlaylist[0].tracks.href, headerOptions)
