@@ -1,5 +1,5 @@
-import querystring from "querystring";
-import axios from "../node_modules/axios";
+const querystring = require("querystring");
+const axios = require("../node_modules/axios")
 
 const checkAuth = (req, res, next) => {
   const isAppAuthenticated = req.session.access_token;

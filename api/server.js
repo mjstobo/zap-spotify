@@ -1,10 +1,10 @@
 //imports
 
-import express from "./node_modules/express";
-import cookieParser from "./node_modules/cookie-parser";
-const dotenv = require("./node_modules/dotenv/config");
-const cors = require("./node_modules/cors/lib");
-const session = require("./node_modules/express-session");
+const express = require("express")
+const cookieParser = require("cookie-parser")
+const dotenv = require("dotenv/config");
+const cors = require("cors/lib");
+const session = require("express-session");
 const path = require("path");
 
 //express init

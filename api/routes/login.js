@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "../node_modules/uuid/dist";
-import querystring from "querystring";
+const uuidv4 = require("../node_modules/uuid/dist")
+const querystring = require("querystring");
 const express = require("../node_modules/express");
 const axios = require("../node_modules/axios").default;
 const routes = express.Router();
