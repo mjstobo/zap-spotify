@@ -92,7 +92,7 @@ const spotifyCallback = async (req, res) => {
           req.session.refresh_token = sessionData.refresh_token;
           req.session.spotifyTokenExpiryTime = Date.now() + (3600 * 1000);
           console.log(req.session.spotifyTokenExpiryTime);
-          req.session.session_id = uuidv4();
+          req.session.session_id = uuid();
           req.session.currentUser = currentUser;
           req.session.auth_code = sessionData.authCode;
           req.session.save(() => {
