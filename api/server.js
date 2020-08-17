@@ -19,6 +19,7 @@ const searchSpotifyByKeyword = require("./routes/search");
 const playSpotifyTrack = require("./routes/playSpotify");
 const getThemeKeyword = require("./routes/themeKeyword");
 const getPlaylists = require("./routes/playlist");
+const RedisStore = require('connect-redis')(session);
 
 //validate spotify access
 const checkAuth = require("./utils/checkAuth");
@@ -26,6 +27,12 @@ const checkAuth = require("./utils/checkAuth");
 const hour = 3600 * 1000;
 
 const sessionData = {
+  store: 
+  process.env.NODE_ENV === "production" ? 
+  new RedisStore({
+    url: process.env.REDIS_URL
+  })
+  : null,
   resave: true,
   name: "zap-session",
   saveUninitialized: true,
