@@ -4,7 +4,10 @@ const express = require("express")
 const cookieParser = require("cookie-parser")
 const dotenv = require("dotenv/config");
 const cors = require("cors/lib");
+const redis = require('redis');
 const session = require("express-session");
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient()
 const path = require("path");
 
 //express init
@@ -19,7 +22,6 @@ const searchSpotifyByKeyword = require("./routes/search");
 const playSpotifyTrack = require("./routes/playSpotify");
 const getThemeKeyword = require("./routes/themeKeyword");
 const getPlaylists = require("./routes/playlist");
-const RedisStore = require('connect-redis')(session);
 
 //validate spotify access
 const checkAuth = require("./utils/checkAuth");
@@ -30,7 +32,8 @@ const sessionData = {
   store: 
   process.env.NODE_ENV === "production" ? 
   new RedisStore({
-    url: process.env.REDIS_URL
+    url: process.env.REDIS_URL,
+    client: redisClient
   })
   : null,
   resave: true,
