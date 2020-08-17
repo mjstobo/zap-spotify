@@ -56,5 +56,5 @@ api.get("/*", function (req, res) {
 });
 
 // run app
-api.listen(process.env.DEFAULT_PORT);
-console.log("API running " + process.env.DEFAULT_PORT);
+api.listen(process.env.PORT || 5000)
+console.log("API running " + process.env.PORT);

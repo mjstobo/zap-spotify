@@ -27,6 +27,7 @@
   "scripts": {
     "both": "concurrently \"nodemon --exec babel-node api/server.js\" \"react-scripts start\" ",
     "start": "react-scripts build && npm run start --prefix api",
+    "local": "react-scripts start",
     "server": "nodemon --exec babel-node ./api/server.js",
     "build": "react-scripts build",
     "postinstall": "npm install --prefix api",
