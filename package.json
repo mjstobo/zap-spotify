@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "http-proxy-middleware": "^1.0.4",
+    "jest-junit": "^11.1.0",
     "js-cookie": "^2.2.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -31,7 +32,8 @@
     "server": "nodemon --exec babel-node ./api/server.js",
     "build": "react-scripts build",
     "postinstall": "npm install --prefix api",
-    "test": "npx cypress run --reporter junit",
+    "cypress": "npx cypress run --reporter junit",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -49,5 +51,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "jest": {
+    "coverageReporters": [
+      "jest-junit"
+    ]
+  }
 }
