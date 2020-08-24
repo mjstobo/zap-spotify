@@ -1,12 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-import {Home} from "./Home/Home";
+import { Home } from "./Home/Home";
 import ThemedSearch from "./ThemedSearch/ThemedSearch";
-import {Playlist} from "./Playlist/Playlist";
+import { Playlist } from "./Playlist/Playlist";
 import Login from "./Login/Login";
-import NavBar from './NavBar/NavBar'
-
+import NavBar from "./NavBar/NavBar";
+import CurrentlyPlaying from "./CurrentlyPlaying/CurrentlyPlaying";
 
 class AppFrame extends React.Component {
   constructor(props) {
@@ -36,10 +36,12 @@ class AppFrame extends React.Component {
     await axios
       .get("/api/playlists")
       .then((response) => {
-        console.log(response.data.returnPlaylist[0])
+        console.log(response.data.returnPlaylist[0]);
         this.setState({
           playlistMetadata: response.data.returnPlaylist[0],
-          playlistTracks: response.data.playlistTracks ? response.data.playlistTracks : "",
+          playlistTracks: response.data.playlistTracks
+            ? response.data.playlistTracks
+            : "",
         });
       })
       .catch((e) => console.log(e));
@@ -61,6 +63,7 @@ class AppFrame extends React.Component {
           } else {
             this.setState({
               isLoaded: true,
+              isLoggedIn: false,
             });
           }
         })
@@ -76,44 +79,42 @@ class AppFrame extends React.Component {
     return;
   };
 
-
   render() {
-    
-  const PrivateRoute = ({ render: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) =>
-        this.state.isLoggedIn ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { isLoggedIn: this.state.isLoggedIn },
-            }}
-          />
-        )
-      }
-    />
-  );
+    const PrivateRoute = ({ render: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={(props) =>
+          this.state.isLoggedIn ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { isLoggedIn: this.state.isLoggedIn },
+              }}
+            />
+          )
+        }
+      />
+    );
 
-  const PublicRoute = ({ render: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) =>
-        this.state.isLoggedIn ? (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { isLoggedIn: this.state.isLoggedIn },
-            }}
-          />
-        ) : (
-          <Component {...props} />
-        )
-      }
-    />
-  );
+    const PublicRoute = ({ render: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={(props) =>
+          this.state.isLoggedIn ? (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { isLoggedIn: this.state.isLoggedIn },
+              }}
+            />
+          ) : (
+            <Component {...props} />
+          )
+        }
+      />
+    );
 
     if (!this.state.isLoaded) {
       return (
@@ -129,20 +130,47 @@ class AppFrame extends React.Component {
     }
     return (
       <div className="App">
-      <h1 className="logo-wordmark">ZAP.</h1>
-      <HashRouter>
-        <NavBar isLoggedIn={this.state.isLoggedIn} />
-        <div className="app-body">
-          <Switch>
-            <PublicRoute exact path="/login" component={Login} />
-            <PrivateRoute exact path="/theme-search" component={ThemedSearch} />
-            <PrivateRoute exact path="/playlist" render={(props) => (<Playlist playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks} {...props}/>)}/>
-            <PrivateRoute exact path="/" render={(props) => (<Home playlistMetadata={this.state.playlistMetadata} playlistTracks={this.state.playlistTracks} {...props}/>)} />
-            <PublicRoute component={Error} />
-          </Switch>
+        <div className="logo-container">
+          <CurrentlyPlaying />
+          <h1 className="logo-wordmark">ZAP.</h1>
         </div>
-      </HashRouter>      
-      
+
+        <HashRouter>
+          <NavBar isLoggedIn={this.state.isLoggedIn} />
+          <div className="app-body">
+            <Switch>
+              <PublicRoute exact path="/login" component={Login} />
+              <PrivateRoute
+                exact
+                path="/theme-search"
+                component={ThemedSearch}
+              />
+              <PrivateRoute
+                exact
+                path="/playlist"
+                render={(props) => (
+                  <Playlist
+                    playlistMetadata={this.state.playlistMetadata}
+                    playlistTracks={this.state.playlistTracks}
+                    {...props}
+                  />
+                )}
+              />
+              <PrivateRoute
+                exact
+                path="/"
+                render={(props) => (
+                  <Home
+                    playlistMetadata={this.state.playlistMetadata}
+                    playlistTracks={this.state.playlistTracks}
+                    {...props}
+                  />
+                )}
+              />
+              <PublicRoute component={Error} />
+            </Switch>
+          </div>
+        </HashRouter>
       </div>
     );
   }

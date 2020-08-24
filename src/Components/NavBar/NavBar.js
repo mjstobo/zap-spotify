@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-import CurrentlyPlaying from "../CurrentlyPlaying/CurrentlyPlaying";
 
 
 class NavBar extends React.Component {
@@ -25,7 +24,6 @@ class NavBar extends React.Component {
             </Link>
           </div>
           <div>
-            <CurrentlyPlaying />
           </div>
         </nav>
     );

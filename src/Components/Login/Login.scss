@@ -18,9 +18,9 @@
 
 .login-frame-cta {
     margin-top: 10px;
-    color: $colour-2;
+    color: $colour-1;
     text-decoration: none;
-    border: 3px solid $colour-2;
+    border: 3px solid $colour-1;
     padding: 10px;
     text-align: center;
     width: 100%;
@@ -30,6 +30,6 @@
 
 .login-frame-cta:hover {
     cursor: pointer;
-    background-color: $colour-2;
+    background-color: $colour-1;
     color: white;
 }

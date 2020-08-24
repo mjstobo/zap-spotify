@@ -9,7 +9,6 @@
     }
 
     max-width: 1100px;
-    width: 85%;
     margin: 0.5em;
     padding: 0.5em;
     background-color: white;
@@ -18,29 +17,40 @@
     flex: 1;
     flex-flow: column;
     height: auto;
-    border-radius: 4.5px;
+    border-radius: 10px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.25), 
               0 3px 3px rgba(0,0,0,0.20), 
               0 5px 5px rgba(0,0,0,0.15), 
               0 8px 8px rgba(0,0,0,0.10),
               0 16px 16px rgba(0,0,0,0.05);
 
+}
 
-            &.subresult {
+.subresult {
 
-                @include breakpoint(tablet) {
-                    min-height: 80px;
-                    width: 82.5%;
-                }
-                flex: auto;
-                font-size: 9px;
-                border-left: solid 6px $colour-2;
-                border-right: solid 6px $colour-2;
-            }
+    @include breakpoint(tablet) {
+        min-height: 80px;
+        width: 82.5%;
+    }
+    flex: auto;
+    font-size: 9px;
+    border-left: solid 3px $colour-white;
+    border-right: solid 3px $colour-white;
+    background: $colour-1;
+
+
+    & .results-tile-content {
+        color: white;
+    }
+
+    & .results-heading {
+        color: white;
+    }
 
 }
 
 .keyword {
+
     min-height: 100px;
     max-height: 150px;
     @include breakpoint(tablet) {
@@ -143,7 +153,7 @@
 
 .btn-container {
     @include breakpoint(desktop) {
-        align-self: center;
+        align-self: flex-end;
         min-height: 100px;
     }
 

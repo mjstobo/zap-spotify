@@ -6,9 +6,9 @@
 }
 
 .App {
-  background: linear-gradient(rgb(235, 245, 255) 50%, rgb(255, 255, 255) 100%);
-  color: $colour-2;
-  height: 100vh;
+  background: $colour-2;
+  color: $colour-1;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -19,6 +19,7 @@ body,
 html {
   max-width: 100vw;
   box-sizing: border-box;
+  background: $colour-2;
 }
 
 .app-body {
@@ -48,13 +49,70 @@ html {
   font-weight: 700;
 }
 
-.logo-wordmark {
+.logo-container {
+  @include breakpoint(desktop) {
+    width: 100%;
+}
+
+@include breakpoint(laptop) {
+    width: 100%;
+}
+
+@include breakpoint(tablet) {
+    width: 100%;
+}
+
+  width: 87.5%;
+  display: flex;
   align-self: flex-end;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.logo-wordmark {
   margin-top: 7.5px;
   margin-bottom: 0;
   margin-right: 17.5px;
   color: $colour-1;
   margin-left: 5px;
+  width: fit-content;
+}
+
+.now-playing {
+
+  @include breakpoint(desktop) {
+    margin-left: 200px;
+}
+
+@include breakpoint(laptop) {
+    margin-left: 15%;
+}
+
+@include breakpoint(tablet) {
+   margin-left: 15%;
+};
+
+  align-content: flex-start;
+  width: fit-content;
+  z-index: 100;
+  height: 60px;
+  padding: 8px;
+  margin-top: 4px;
+  text-decoration: none;
+  color: $colour-1;
+  font-size: 14px;
+
+}
+
+.track-playing {
+  display: flex;
+  padding: 2px;
+}
+
+.artist-name {
+  color: $colour-white;
+  font-style: italic;
+  font-size: 12px;
 }
 
 .loader {

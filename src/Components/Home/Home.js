@@ -2,6 +2,7 @@ import React from "react";
 import ThemedSearch from "../ThemedSearch/ThemedSearch";
 import Search from "../Search/Search";
 
+
 class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ class HomeComponent extends React.Component {
   render() {
     return (
       <div className="home-frame">
-        <h1 className="home-title">Welcome to Zap</h1>
+        <h1 className="home-title">Welcome to <span className="zap-word">Zap.</span></h1>
         <h3 className="home-subtitle">
           Search for your theme keyword and find related songs and phrases
         </h3>

@@ -77,11 +77,10 @@ h1 {
 
     flex-grow: 1;
     color: $colour-white;
-    font-size: 1rem;
-    font-weight: 450;
+    font-size: 1.15rem;
     text-decoration: none;
-    background-color: $colour-2;
-    border: 2px solid $colour-2;
+    background-color: $colour-1;
+    border: 2px solid $colour-1;
     border-radius: 2.5px;
     margin-top: 12px;
     padding: 10px;
@@ -97,14 +96,14 @@ h1 {
 
 .search-icon {
     align-self: center;
-    margin: 6px;
+    margin: 8px;
     fill: $colour-2;
 }
 
 .search-bar-submit:hover,
 .search-bar-submit:focus {
-    background: $colour-2;
-    color: $colour-1;
+    background: $colour-white;
+    color: $colour-2;
     cursor: pointer;
 
 }
@@ -114,7 +113,6 @@ h1 {
     margin-top: 1.25em;
     display: flex;
     flex-flow: column;
-    align-items: center;
   
     @include breakpoint(desktop) {
         align-items: unset;
@@ -128,15 +126,16 @@ h1 {
 }
 
 .search-summary {
-    color: $colour-2;
+    color: $colour-1;
     align-self: center;
     margin-left: 2.5%;
     min-height: 40px;
 }
 
 .search-term {
-    color: $colour-1;
-    border-bottom: 1px solid $colour-2;
+    color: $colour-white; 
+    font-weight: 700;
+    border-bottom: 1px solid $colour-1;
 }
 
 .searching {

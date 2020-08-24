@@ -5,7 +5,7 @@
         width: 72.5vw;
     }
 
-    width: 70vw;
+    width: 71vw;
     min-width: 300px;
     display: flex;
     flex-flow: column;
@@ -13,8 +13,9 @@
 
     & .home-title {
         align-self: flex-start;
-        font-size: 36px;
-        font-weight: 900;
+        font-size: 72px;
+        font-weight: 800;
+        color: $colour-1;
     }
 
     & .home-subtitle {
@@ -32,6 +33,11 @@
             margin-bottom: 0;
          }
     
+    }
+
+    & .zap-word {
+        color: $colour-white;
+        font-weight: 900;
     }
     
 }
@@ -52,3 +58,5 @@ h3 {
 .panel {
     width: 50%;
 }
+
+

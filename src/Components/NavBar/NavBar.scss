@@ -18,7 +18,6 @@
         width: 15%;
     }
 
-    margin-right: 2.5%;
     width: 12%;
     margin-right: 2.5px;
     position: fixed;
@@ -26,7 +25,7 @@
     left: 0;
     height: 100%;
     flex-flow: column;
-    background-color: $colour-2;
+    background-color: $colour-1;
     padding: 5px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.45), 
               0 4px 4px rgba(0,0,0,0.40), 
@@ -38,7 +37,7 @@
 .login-cta {
     color: #0A090C;
     text-decoration: none;
-    border: 3px solid $colour-1;
+    border: 3px solid $colour-2;
     padding: 7.5px;
     display: block;
     text-align: center;
@@ -46,8 +45,8 @@
 
 .login-cta:hover {
     cursor: pointer;
-    background-color: $colour-1;
-    color: $colour-2;
+    background-color: $colour-2;
+    color: $colour-1;
     transition: background 250ms ease-in-out, 
                 transform 150ms ease;
 }
@@ -120,40 +119,5 @@
 }
 
 .nav-bar.content .nav-link:hover {
-    border-bottom: 4px solid $colour-1;
-}
-
-.now-playing {
-
-    @include breakpoint(desktop) {
-        visibility: visible;
-    }
-
-    @include breakpoint(laptop) {
-        visibility: visible;
-    }
-
-    @include breakpoint(tablet) {
-        visibility: visible;
-    }
-
-    visibility: hidden;
-    z-index: 100;
-    width: 100%;
-    height: 60px;
-    padding: 2px;
-    text-decoration: none;
-    color: $colour-1;
-    font-size: 12px;
-}
-
-.track-playing {
-    display: flex;
-    padding: 2px;
-}
-
-.artist-name {
-    color: $colour-white;
-    font-style: italic;
-    font-size: 12px;
+    border-bottom: 4px solid $colour-2;
 }
