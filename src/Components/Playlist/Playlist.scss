@@ -1,20 +1,26 @@
 .playlist-title {
-    font-size: 60px;
+    font-size: 58px;
+    width: 100%;
     font-weight: 900;
     margin-top: unset;
+    margin-left: 5%;
     color: $colour-1;
+
+
+    @include breakpoint(desktop) {
+        margin-left: unset;
+    }
+
 }
 
 .remove-tracks-cta {
-    width: 3.5%;
+
     background-color: unset;
     border: none;
     height: 40px;
     align-self: flex-end;
 
     &:hover {
-        border: 2px solid $colour-2;
-        border-radius: 6px;
         cursor: pointer;
         & .remove-icon {
             fill: $colour-1;
@@ -23,9 +29,7 @@
     }
 
     &:active {
-        border: 2px solid $colour-2;
-        background-color: $colour-2;
-        border-radius: 6px;
+        background-color: $colour-1;
         cursor: pointer;
         & .remove-icon {
             fill: $colour-white;
@@ -36,14 +40,18 @@
 }
 
 .remove-icon {
-    fill: $colour-2;
+    fill: $colour-white;
     width: 18px;
 
 }
 
 .playlist-controls {
+
+    @include breakpoint(desktop) {
+        width: 82.5%;
+    }
     display: flex;
-    width: 82.5%;
+    width: 97.5%;
     flex-flow: row;
     justify-content: space-between;
     align-content: center;
