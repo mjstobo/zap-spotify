@@ -22,7 +22,10 @@ class SpotifyResultsTile extends React.Component {
           uri: this.props.result.uri,
         },
       })
-      .then(() => toast(`Playing ${this.props.result.name}`));
+      .then(() => toast(`Playing ${this.props.result.name}`))
+      .catch((error) => {
+        toast(`Unable to play track.`);
+    });
   };
 
   handleAddToPlaylistClick = async () => {
@@ -34,7 +37,10 @@ class SpotifyResultsTile extends React.Component {
           playlist_id: this.props.playlistId,
         },
       })
-      .then(() => toast(`Added ${this.props.result.name} to playlist`));
+      .then(() => toast(`Added ${this.props.result.name} to playlist`))
+      .catch((error) => {
+        toast(`Unable to add track.`);
+    });
   };
 
   render() {
