@@ -1,20 +1,17 @@
+# Zap Spotify
+
+Powered by the Spotify and Datamuse APIs, Zap Spotify is a tool that allows users to curate themed playlists using a keyword. 
+
+Live application can be seen on Heroku [here](https://zap-spotify.herokuapp.com)
+
+## Implementation
+
+Zap is a React application and a NodeJS / Express API. SASS has been used for styling throughout. 
+
+It is integrated with the Spotify API via OAuth to allow users to search, play and add songs to a playlist. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Local Build
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-
+Unfortunately, the local build requires a Spotify Client ID / Secret to run properly. I'd be more than happy to demonstrate the code for the application if interested, just reach out! 
